@@ -3,7 +3,7 @@ Functions for moving the robot FORWARD and BACKWARD.
 Authors: David Fisher, David Mutchler and David Ardy.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# DONE: 2. Implment forward_seconds, then the relevant part of the test function.
+# DONE: 2. Implement forward_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
 #   Then repeat for forward_by_time.
 #   Then repeat for forward_by_encoders.
@@ -27,7 +27,6 @@ def test_forward_backward():
       3. Same as #2, but runs forward_by_encoders.
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
-# i'm already memeing in this one but someone can help - Ardy
 
 
 def forward_seconds(seconds, speed, stop_action):
