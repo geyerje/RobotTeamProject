@@ -42,7 +42,7 @@ def test_spin_left_spin_right():
         stop_action = input('enter a stop action: (brake, coast, hold)')
         spin_left_seconds(time_s, speed, stop_action)
 
-    
+
 
 
 def spin_left_seconds(seconds, speed, stop_action):
