@@ -17,17 +17,19 @@ right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
 def test_turn_left_turn_right():
     while time_s != 0:
-        left_sp = int(input("Enter a speed for the left motor (-100 to 100): "))
-        right_sp = int(input("Enter a speed for the right motor (-100 to 100): "))
-        time_s = int(input("Enter a time to drive (seconds): "))
+        speed = int(input("Enter a speed for the left turn (0 to 100): "))
         stop = str(input('Enter stop actions: brake, coast, or hold?'))
-        left_motor.run_forever(speed_sp=left_sp)
-        right_motor.run_forever(speed_sp=right_sp)
-        time.sleep(time_s)
-        left_motor.stop()
-        right_motor.stop(stop_action=stop)
+        time_s = int(input("Enter a time to drive (seconds): "))
+        turn_left_seconds(time_s, speed, stop)
 
-    
+    while time_s != 0:
+        speed = int(input("Enter a speed for the left turn (0 to 100): "))
+        stop = str(input('Enter stop actions: brake, coast, or hold?'))
+        degrees = int(input("Enter degrees to turn through "))
+        turn_left_by_time(time_s, speed, stop)
+
+
+
 
     """
     Tests the turn_left and turn_right functions, as follows:
@@ -44,7 +46,12 @@ def test_turn_left_turn_right():
     """
 
 
-def turn_left_seconds(seconds, speed, stop_action):
+def turn_left_seconds(time_s, speed, stop):
+    right_motor.run_forever(speed_sp=speed)
+    left_motor.run_forever(speed_sp=-speed)
+    time.sleep(time_s)
+    left_motor.stop()
+    right_motor.stop(stop_action=stop)
     """
     Makes the robot turn in place left for the given number of seconds at the given speed,
     where speed is between -100 (full speed turn_right) and 100 (full speed turn_left).
@@ -52,7 +59,13 @@ def turn_left_seconds(seconds, speed, stop_action):
     """
 
 
-def turn_left_by_time(degrees, speed, stop_action):
+def turn_left_by_time(degrees, speed, stop):
+    right_motor.run_to_rel_pos(position_sp=459.457, speed_sp=speed)
+    left_motor.run_to_rel_pos(position_sp=-459.457, speed_sp=speed)
+    right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    right_motor.stop(stop_action=stop)
+
     """
     Makes the robot turn in place left the given number of degrees at the given speed,
     where speed is between -100 (full speed turn_right) and 100 (full speed turn_left).
