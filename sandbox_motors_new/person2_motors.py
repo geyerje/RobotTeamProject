@@ -60,7 +60,16 @@ def spin_left_by_time(degrees, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_timed(speed_sp=-speed, time_sp=seconds * 1000, stop_action=stop_action)
+    right_motor.run_timed(speed_sp=speed, time_sp=seconds * 1000, stop_action=stop_action)
 
 def spin_left_by_encoders(degrees, speed, stop_action):
     """
@@ -83,5 +92,5 @@ def spin_right_by_time(degrees, speed, stop_action):
 def spin_right_by_encoders(degrees, speed, stop_action):
     """ Calls spin_left_by_encoders with negative speeds to achieve spin_right motion. """
 
-
+Main()
 test_spin_left_spin_right()
