@@ -13,6 +13,8 @@ Authors: David Fisher, David Mutchler and Ryan Antenore.
 import ev3dev.ev3 as ev3
 import time
 
+def Main():
+    spin_left_seconds(5, 500, ev3.Motor.STOP_ACTION_COAST)
 
 def test_spin_left_spin_right():
     """
