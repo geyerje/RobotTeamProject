@@ -36,6 +36,17 @@ def spin_left_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed spin_right) and 100 (full speed spin_left).
     Uses the given stop_action.
     """
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    while True:
+        left_motor.run_timed(speed_sp = -speed, time_sp = seconds * 1000, stop_action = stop_action)
+        right_motor.run_timed(speed_sp = speed, time_sp = seconds * 1000, stop_action = stop_action)
 
 
 def spin_left_by_time(degrees, speed, stop_action):
