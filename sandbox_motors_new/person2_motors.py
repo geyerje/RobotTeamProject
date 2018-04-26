@@ -15,7 +15,7 @@ import time
 
 
 def Main():
-    test_spin_left_spin_right()
+
     spin_left_seconds(5, 500, ev3.Motor.STOP_ACTION_COAST)
 
 
@@ -36,9 +36,13 @@ def test_spin_left_spin_right():
     time_s = 1  # Any value other than 0.
     while time_s != 0:
         time_s = int(input("Enter seconds to travel (seconds): "))
+        if time_s == 0:
+            break
         speed = int(input("Enter a speed for the left turn (-100 - 100): "))
         stop_action = input('enter a stop action: (brake, coast, hold)')
         spin_left_seconds(time_s, speed, stop_action)
+
+    
 
 
 def spin_left_seconds(seconds, speed, stop_action):
