@@ -13,8 +13,11 @@ Authors: David Fisher, David Mutchler and Ryan Antenore.
 import ev3dev.ev3 as ev3
 import time
 
+
 def Main():
+    test_spin_left_spin_right()
     spin_left_seconds(5, 500, ev3.Motor.STOP_ACTION_COAST)
+
 
 def test_spin_left_spin_right():
     """
@@ -38,10 +41,6 @@ def test_spin_left_spin_right():
         spin_left_seconds(time_s, speed, stop_action)
 
 
-
-
-
-
 def spin_left_seconds(seconds, speed, stop_action):
     """
     Makes the robot spin in place left for the given number of seconds at the given speed,
@@ -56,9 +55,8 @@ def spin_left_seconds(seconds, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    left_motor.run_timed(speed_sp = -speed, time_sp = seconds * 1000, stop_action = stop_action)
-    right_motor.run_timed(speed_sp = speed, time_sp = seconds * 1000, stop_action = stop_action)
-
+    left_motor.run_timed(speed_sp=-speed, time_sp=seconds * 1000, stop_action=stop_action)
+    right_motor.run_timed(speed_sp=speed, time_sp=seconds * 1000, stop_action=stop_action)
 
 
 def spin_left_by_time(degrees, speed, stop_action):
