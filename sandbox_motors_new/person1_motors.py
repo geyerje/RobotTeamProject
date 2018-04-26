@@ -1,9 +1,9 @@
 """
 Functions for moving the robot FORWARD and BACKWARD.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and David Ardy.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. Implment forward_seconds, then the relevant part of the test function.
+# DONE: 2. Implement forward_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
 #   Then repeat for forward_by_time.
 #   Then repeat for forward_by_encoders.
@@ -27,7 +27,6 @@ def test_forward_backward():
       3. Same as #2, but runs forward_by_encoders.
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
-# i'm already memeing in this one but someone can help - Ardy
 
 
 def forward_seconds(seconds, speed, stop_action):
@@ -38,12 +37,12 @@ def forward_seconds(seconds, speed, stop_action):
     """
     left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
     right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-
     assert left_motor.connected
     assert right_motor.connected
-    left_motor.run_forever(speed_sp=speed, stop_ation=stop_action)
+
+    left_motor.run_forever(speed_sp=speed*8, stop_ation=stop_action)
     time.sleep(seconds)
-    
+
 
 def forward_by_time(inches, speed, stop_action):
     """
@@ -56,6 +55,15 @@ def forward_by_time(inches, speed, stop_action):
       3. Stop moving.
     """
 
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    assert right_motor.connected
+
+    t = (inches/(speed*8))*1000
+    left_motor.run_to_rel_pos(speed_sp=speed*8, time_sp=t, stop_action=stop_action)
+    right_motor.run_to_rel_pos(speed_sp=speed*8, time_sp=t, stop_action=stop_action)
+
 
 def forward_by_encoders(inches, speed, stop_action):
     """
@@ -66,17 +74,32 @@ def forward_by_encoders(inches, speed, stop_action):
       2. Move until the computed number of degrees is reached.
     """
 
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    assert right_motor.connected
+
+    position = (inches/4)*360
+    left_motor.run_to_rel_pos(position_sp=position, speed_sp=speed*8, stop_action=stop_action)
+    right_motor.run_to_rel_pos(position_sp=position, speed_sp=speed*8, stop_action=stop_action)
+
 
 def backward_seconds(seconds, speed, stop_action):
     """ Calls forward_seconds with negative speeds to achieve backward motion. """
+
+    forward_seconds(seconds, -speed, stop_action)
 
 
 def backward_by_time(inches, speed, stop_action):
     """ Calls forward_by_time with negative speeds to achieve backward motion. """
 
+    forward_by_time(inches, -speed, stop_action)
+
 
 def backward_by_encoders(inches, speed, stop_action):
     """ Calls forward_by_encoders with negative speeds to achieve backward motion. """
+
+    forward_by_encoders(inches, -speed, stop_action)
 
 
 test_forward_backward()

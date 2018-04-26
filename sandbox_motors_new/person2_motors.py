@@ -13,6 +13,8 @@ Authors: David Fisher, David Mutchler and Ryan Antenore.
 import ev3dev.ev3 as ev3
 import time
 
+def Main():
+    spin_left_seconds(5, 500, ev3.Motor.STOP_ACTION_COAST)
 
 def test_spin_left_spin_right():
     """
@@ -46,6 +48,16 @@ def spin_left_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed spin_right) and 100 (full speed spin_left).
     Uses the given stop_action.
     """
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_timed(speed_sp = -speed, time_sp = seconds * 1000, stop_action = stop_action)
+    right_motor.run_timed(speed_sp = speed, time_sp = seconds * 1000, stop_action = stop_action)
 
 
 
