@@ -1,7 +1,7 @@
 """
 Functions for SPINNING the robot LEFT and RIGHT.
-Authors: David Fisher, David Mutchler and Adrew Novotny and Ryan Antenore.
-"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Ryan Antenore.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Implment spin_left_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
