@@ -27,7 +27,24 @@ def test_turn_left_turn_right():
       3. Same as #2, but runs turn_left_by_encoders.
       4. Same as #1, 2, 3, but tests the turn_right functions.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    time_s = 1  # Any value other than 0.
+    while time_s != 0:
+
+        speed = int(input("Enter a speed for the right motor (0 to 900 dps): "))
+        time_s = int(input("Enter a time to drive (seconds): "))
+        stop_action = input('Enter the stop Action')
+        left_motor.run_forever(speed_sp= speed)
+        right_motor.run_forever(speed_sp=right_sp)
+        time.sleep(time_s)
+        left_motor.stop()
+        right_motor.stop(stop_action="brake")
 
 def turn_left_seconds(seconds, speed, stop_action):
     """
