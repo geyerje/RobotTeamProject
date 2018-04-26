@@ -41,7 +41,7 @@ def forward_seconds(seconds, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    left_motor.run_forever(speed_sp=speed, stop_ation=stop_action)
+    left_motor.run_forever(speed_sp=speed*8, stop_ation=stop_action)
     time.sleep(seconds)
 
 
@@ -62,8 +62,8 @@ def forward_by_time(inches, speed, stop_action):
     assert right_motor.connected
 
     position = (inches/4)*360
-    left_motor.run_to_rel_pos(position_sp=position, speed, stop_action=stop_action)
-    right_motor.run_to_rel_pos(position_sp=position, speed, stop_action=stop_action)
+    left_motor.run_to_rel_pos(position_sp=position, speed_sp=speed*8, stop_action=stop_action)
+    right_motor.run_to_rel_pos(position_sp=position, speed_sp=speed*8, stop_action=stop_action)
 
 
 def forward_by_encoders(inches, speed, stop_action):
