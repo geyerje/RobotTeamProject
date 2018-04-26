@@ -29,6 +29,7 @@ def test_forward_backward():
     """
 # i'm already memeing in this one but someone can help - Ardy
 
+
 def forward_seconds(seconds, speed, stop_action):
     """
     Makes the robot move forward for the given number of seconds at the given speed,
@@ -40,7 +41,9 @@ def forward_seconds(seconds, speed, stop_action):
 
     assert left_motor.connected
     assert right_motor.connected
-    left_motor.run_forever(speed_sp=speed + 8, stop_ation=stop_action)
+    left_motor.run_forever(speed_sp=speed, stop_ation=stop_action)
+    time.sleep(seconds)
+    
 
 def forward_by_time(inches, speed, stop_action):
     """
