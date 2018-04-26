@@ -27,6 +27,7 @@ def test_forward_backward():
       3. Same as #2, but runs forward_by_encoders.
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
+# i'm already memeing in this one but someone can help - Ardy
 
 
 def forward_seconds(seconds, speed, stop_action):
@@ -35,6 +36,13 @@ def forward_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed backward) and 100 (full speed forward).
     Uses the given stop_action.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_forever(speed_sp=speed, stop_ation=stop_action)
+    time.sleep(seconds)
 
 
 def forward_by_time(inches, speed, stop_action):
@@ -47,6 +55,15 @@ def forward_by_time(inches, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    assert right_motor.connected
+
+    position = (inches/4)*360
+    left_motor.run_to_rel_pos(position_sp=position, speed, stop_action=stop_action)
+    right_motor.run_to_rel_pos(position_sp=position, speed, stop_action=stop_action)
 
 
 def forward_by_encoders(inches, speed, stop_action):
