@@ -11,6 +11,7 @@ Authors: David Fisher, David Mutchler and David Ardy and Andrew Novotny.
 
 import ev3dev.ev3 as ev3
 import time
+import math
 
 
 
@@ -82,12 +83,11 @@ def forward_by_time(inches, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    t = abs((inches/(speed*8)))
-    left_motor.run_forever(speed_sp=speed*8)
-    right_motor.run_forever(speed_sp=speed*8)
-    time.sleep(t)
-    left_motor.stop_action = stop_action
-    right_motor.stop_action = stop_action
+    t = abs(inches/(1.3*.5*speed*8* math.pi /180))*1000
+    print(t)
+    left_motor.run_timed(speed_sp=speed*8, time_sp = t, stop_action = stop_action)
+    right_motor.run_timed(speed_sp=speed*8, time_sp = t, stop_action = stop_action)
+
 
 
 
