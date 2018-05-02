@@ -50,14 +50,23 @@ def test_spin_left_spin_right():
         stop_action = input('enter a stop action: (brake, coast, hold)')
         spin_right_seconds(time_s, speed, stop_action)
 
-    time_s = 1  # Any value other than 0.
-    while time_s != 0:
-        degrees = int(input("Enter degrees to spin left: "))
-        if time_s == 0:
+    degrees = 1  # Any value other than 0.
+    while degrees != 0:
+        degrees = int(input("Enter degrees to spin left: (using time)"))
+        if degrees == 0:
             break
         speed = int(input("Enter a speed for left turn by time (-100 - 100): "))
         stop_action = input('enter a stop action: (brake, coast, hold)')
         spin_left_by_time(degrees, speed, stop_action)
+
+    degrees = 1  # Any value other than 0.
+    while degrees != 0:
+        degrees = int(input("Enter degrees to spin left: (using encoders) "))
+        if degrees == 0:
+            break
+        speed = int(input("Enter a speed for left turn by time (-100 - 100): "))
+        stop_action = input('enter a stop action: (brake, coast, hold)')
+        spin_left_by_encoders(degrees, speed, stop_action)
 
 
 def spin_left_seconds(seconds, speed, stop_action):
@@ -97,7 +106,7 @@ def spin_left_by_time(degrees, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
     encoder_degrees = (degrees * 4.25)
-    time_run = encoder_degrees / speed
+    time_run = abs(encoder_degrees / speed)
 
     left_motor.run_timed(speed_sp=-speed, time_sp=time_run * 1000, stop_action=stop_action)
     right_motor.run_timed(speed_sp=speed, time_sp=time_run * 1000, stop_action=stop_action)
@@ -111,6 +120,19 @@ def spin_left_by_encoders(degrees, speed, stop_action):
       1. Compute the number of degrees the wheels should spin to achieve the desired distance.
       2. Move until the computed number of degrees is reached.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    speed *= 8
+    assert left_motor.connected
+    assert right_motor.connected
+    encoder_degrees = (degrees * 4.5)
+
+    left_motor.run_to_rel_pos(position_sp=-encoder_degrees, speed_sp=speed, stop_action=stop_action)
+    right_motor.run_to_rel_pos(position_sp=encoder_degrees, speed_sp=speed, stop_action=stop_action)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    right_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
 
 def spin_right_seconds(seconds, speed, stop_action):
@@ -120,10 +142,12 @@ def spin_right_seconds(seconds, speed, stop_action):
 
 def spin_right_by_time(degrees, speed, stop_action):
     """ Calls spin_left_by_time with negative speeds to achieve spin_right motion. """
+    spin_left_by_time(degrees, -speed, stop_action)
 
 
 def spin_right_by_encoders(degrees, speed, stop_action):
     """ Calls spin_left_by_encoders with negative speeds to achieve spin_right motion. """
+    spin_left_by_encoders(degrees, -speed, stop_action)
 
 
 test_spin_left_spin_right()
