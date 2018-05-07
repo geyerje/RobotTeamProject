@@ -240,5 +240,14 @@ def show_images(list_of_images):
 # -----------------------------------------------------------------------------
 
 def meme_magic():
+    print('prepare for some meme magic')
+    time.sleep(1)
+    ev3.Sound.tone(400, 500, 20)
+    ev3.Sound.tone(400, 500, 20)
+    ev3.Sound.tone(500, 500, 20)
+    ev3.Sound.tone(400, 500, 20)
+    ev3.Sound.tone(400, 500, 20)
+    ev3.Sound.tone(500, 500, 20)
+
 
 main()
