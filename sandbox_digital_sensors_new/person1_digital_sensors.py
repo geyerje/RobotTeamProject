@@ -228,6 +228,7 @@ def show_images(list_of_images):
        3. Waits for the user to RELEASE the touch sensor.
        4. Prints "Look at the image on the BRICK!".
        5. Displays the image on the ev3 BRICK's screen.
+       David is a shitstain
 
     Type hints:
       :type list_of_images: []
@@ -240,7 +241,6 @@ def show_images(list_of_images):
             time.sleep(.05)
         print('Listen to the sound on the BRICK!')
         ev3.Sound.tone(440, 500).wait()
-
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
