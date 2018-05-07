@@ -35,9 +35,10 @@ def main():
     # Uncomment these tests as you proceed through this module.
 
     # run_test_touch_sensor()
-    # run_test_wait_for_press()
+    run_test_wait_for_press()
     # run_test_show_images()
     run_test_touch_sensor()
+
 
 def run_test_touch_sensor():
     """ Tests the   print_state_of_touch_sensor   function. """
@@ -158,7 +159,7 @@ def wait_for_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
