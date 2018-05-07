@@ -155,6 +155,10 @@ def wait_for_press():
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
+    touch_sensor = ev3.TouchSensor
+    while touch_sensor.is_pressed != 1:
+        time.sleep(.05)
+    print('touch sensor has been pressed')
 
 def run_test_show_images():
     """ Tests the   show_images   function. """
