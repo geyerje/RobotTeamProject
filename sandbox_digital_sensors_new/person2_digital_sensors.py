@@ -7,11 +7,11 @@ Person 1: ev3.TouchSensor
 Person 2: ev3.Button
 Person 3: ev3.RemoteControl
 
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Ryan Antenore.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
+# Done: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
 #           as described in the   _README_FIRST.txt   file.
 #
 # When your   ** ENTIRE TEAM ** understands that:
@@ -33,7 +33,7 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    # run_test_buttons_on_brick()
+    run_test_buttons_on_brick()
     # run_test_wait_for_press_on_brick_button()
     # run_test_show_leds()
 
@@ -115,6 +115,11 @@ def print_state_of_left_button_on_brick(n, seconds_per_print):
        1. Prints the STATE of the LEFT button on the ev3 BRICK.
        2. SLEEPs for the given number of seconds.
     """
+    buttons = ev3.Button()
+    for k in range(n):
+        print(buttons.left)
+        time.sleep(seconds_per_print)
+
     # -------------------------------------------------------------------------
     # TODO: 3.  Implement and test this function.
     #           Tests have been written for you (above).
