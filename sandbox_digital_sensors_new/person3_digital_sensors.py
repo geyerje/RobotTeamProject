@@ -7,11 +7,11 @@ Person 1: ev3.TouchSensor
 Person 2: ev3.Button
 Person 3: ev3.RemoteControl
 
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and James (Bo) Geyer.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
+# Done: 2.  WITH YOUR INSTRUCTOR, discuss the "big picture" of this project,
 #           as described in the   _README_FIRST.txt   file.
 #
 # When your   ** ENTIRE TEAM ** understands that:
@@ -33,9 +33,9 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    # run_test_buttons_on_ir_beacon()
-    # run_test_wait_for_press_on_ir_beacon_button()
-    # run_test_make_sounds()
+    #run_test_buttons_on_ir_beacon()
+    #run_test_wait_for_press_on_ir_beacon_button()
+    run_test_make_sounds()
 
 
 def run_test_buttons_on_ir_beacon():
@@ -110,6 +110,11 @@ def run_test_buttons_on_ir_beacon():
 
 
 def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
+    top_right = ev3.RemoteControl(channel=1)
+    for k in range(n):
+        print('press the button')
+        print(top_right.blue_up)
+        time.sleep(seconds_per_print)
     """
     Constructs an ev3.RemoteControl object for channel 1.
     Then does the following  n  times (where n is the first argument):
@@ -117,7 +122,7 @@ def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # DOne: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
@@ -174,6 +179,11 @@ def run_test_wait_for_press_on_ir_beacon_button():
 
 
 def wait_for_RED_DOWN_button_press():
+    left_down = ev3.RemoteControl(channel=2)
+    while left_down.red_down == False:
+        print('Press the red button!')
+    print('Well done!')
+    time.sleep(0.05)
     """
     Constructs an ev3.RemoteControl object for channel 2.
     Then repeatedly:
@@ -183,7 +193,7 @@ def wait_for_RED_DOWN_button_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # Done: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
@@ -195,6 +205,8 @@ def run_test_make_sounds():
     print('Testing the   make_sounds   function:')
     print('--------------------------------------------------')
 
+    make_sounds()
+
     print()
     print('  ** CHANGE the channel to 3. **')
     print('Then press the IR Beacon buttons to make sounds.')
@@ -202,6 +214,18 @@ def run_test_make_sounds():
 
 
 def make_sounds():
+    yeet = ev3.RemoteControl(channel=3)
+    print('Ready!')
+    while yeet.blue_down == False:
+        if yeet.red_up == True:
+            ev3.Sound.beep()
+        if yeet.red_down == True:
+            ev3.Sound.speak('David Arty is stupid').wait(2)
+        if yeet.blue_up == True:
+            ev3.Sound.play('/home/robot/csse120/assets/sounds/awesome_pcm.wav')
+    ev3.Sound.speak('David Arty is dumb').wait(2)
+    print('Get yeeted')
+
     """
     Constructs an ev3.RemoteControl object for channel 2.
     Then, repeatedly make the IR Beacon buttons behave as follows:
