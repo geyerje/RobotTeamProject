@@ -228,7 +228,7 @@ def show_images(list_of_images):
        3. Waits for the user to RELEASE the touch sensor.
        4. Prints "Look at the image on the BRICK!".
        5. Displays the image on the ev3 BRICK's screen.
-       David is a shitstain
+       David is a very big shitstain
 
     Type hints:
       :type list_of_images: []
