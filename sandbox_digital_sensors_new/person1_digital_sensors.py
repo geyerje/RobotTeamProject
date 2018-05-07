@@ -35,9 +35,9 @@ def main():
     # Uncomment these tests as you proceed through this module.
 
     # run_test_touch_sensor()
-    run_test_wait_for_press()
-    # run_test_show_images()
-    run_test_touch_sensor()
+    #run_test_wait_for_press()
+    run_test_show_images()
+    #run_test_wait_for_press()
 
 
 def run_test_touch_sensor():
@@ -107,7 +107,7 @@ def print_state_of_touch_sensor(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # : 3.  Implement and test this function.
+    # DONE: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
     touch_sensor = ev3.TouchSensor()
@@ -232,6 +232,14 @@ def show_images(list_of_images):
     Type hints:
       :type list_of_images: []
     """
+    touchsensor = ev3.TouchSensor()
+    for k in range(10):
+        print('Press the touch sensor for the next sound')
+        wait_for_press()
+        while touchsensor.is_pressed != 0:
+            time.sleep(.05)
+        print('Listen to the sound on the BRICK!')
+        ev3.Sound.tone(440, 500).wait()
 
 
 # -----------------------------------------------------------------------------
