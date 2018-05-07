@@ -33,9 +33,9 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    run_test_buttons_on_brick()
+    # run_test_buttons_on_brick()
     # run_test_wait_for_press_on_brick_button()
-    # run_test_show_leds()
+    run_test_show_leds()
 
 
 def run_test_buttons_on_brick():
@@ -121,13 +121,14 @@ def print_state_of_left_button_on_brick(n, seconds_per_print):
         time.sleep(seconds_per_print)
 
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # Done: 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
 
 def run_test_wait_for_press_on_brick_button():
     """ Tests the   wait_for_UP_button_press   function. """
+
     print()
     print('--------------------------------------------------')
     print('Testing the   wait_for_UP_button_press   function:')
@@ -180,8 +181,14 @@ def wait_for_up_button_press():
             (i.e., when the UP button is pressed).
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
+    buttons = ev3.Button()
+    while True:
+        if buttons.up:
+            break
+        time.sleep(.05)
+
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # Done: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
@@ -197,7 +204,7 @@ def run_test_show_leds():
     print('Press the LEFT, RIGHT, UP, DOWN, and BACKSPACE buttons'
           + ' on the BRICK to change LED states.')
     print()
-
+    show_leds()
 
 def show_leds():
     """
@@ -210,6 +217,26 @@ def show_leds():
        -- DOWN button:  Both LEDs turn off (i.e., to BLACK).
        -- BACKSPACE button: The program breaks out of the loop.
     """
+    buttons = ev3.Button()
+    light = ev3.Leds
+
+    while True:
+        if buttons.left:
+            light.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+            light.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
+        if buttons.right:
+            light.set_color(ev3.Leds.LEFT, ev3.Leds.RED)
+            light.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+        if buttons.up:
+            light.set_color(ev3.Leds.LEFT, ev3.Leds.AMBER)
+            light.set_color(ev3.Leds.RIGHT, ev3.Leds.AMBER)
+        if buttons.down:
+            light.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+            light.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+        if buttons.backspace:
+            break
+
+
 
 
 # -----------------------------------------------------------------------------
