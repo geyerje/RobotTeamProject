@@ -106,15 +106,15 @@ def print_state_of_touch_sensor(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.  Implement and test this function.
+    # : 3.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
     touch_sensor = ev3.TouchSensor()
     for j in range(n):
         if touch_sensor.is_pressed:
-            print("IT'S PRESSED")
+            print(1)
         else:
-            print('not yet')
+            print(0)
         time.sleep(seconds_per_print)
 
 
