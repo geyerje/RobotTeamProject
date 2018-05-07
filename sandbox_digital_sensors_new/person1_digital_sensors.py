@@ -38,6 +38,7 @@ def main():
     run_test_wait_for_press()
     # run_test_show_images()
     run_test_touch_sensor()
+    meme_magic()
 
 
 def run_test_touch_sensor():
@@ -237,4 +238,7 @@ def show_images(list_of_images):
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
+
+def meme_magic():
+
 main()
