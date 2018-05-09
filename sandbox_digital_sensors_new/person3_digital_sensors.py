@@ -220,10 +220,10 @@ def make_sounds():
         if yeet.red_up == True:
             ev3.Sound.beep()
         if yeet.red_down == True:
-            ev3.Sound.speak('David Arty is stupid').wait(2)
+            ev3.Sound.speak('Poopy-di scoop Scoop-diddy-whoop Whoop-di-scoop-di-poop Poop-di-scoopty Scoopty-whoop').wait(2)
         if yeet.blue_up == True:
             ev3.Sound.play('/home/robot/csse120/assets/sounds/awesome_pcm.wav')
-    ev3.Sound.speak('David Arty is dumb').wait(2)
+
     print('Get yeeted')
 
     """
