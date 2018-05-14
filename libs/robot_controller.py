@@ -25,9 +25,11 @@ class Snatch3r(object):
     def __init__(self):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
 
         assert self.left_motor.connected
         assert self.right_motor.connected
+        assert self.arm_motor.connected
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -55,3 +57,12 @@ class Snatch3r(object):
         self.left_motor.stop()
         self.right_motor.stop()
         time.sleep(0.05)
+
+    def arm_up(self):
+        self.arm_motor.run_forever(speed_sp=50)
+
+    def arm_down(self):
+        self.arm_motor.run_forever(speed_sp=-50)
+
+
+
