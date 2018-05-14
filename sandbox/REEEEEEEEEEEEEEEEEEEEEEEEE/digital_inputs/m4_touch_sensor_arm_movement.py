@@ -32,15 +32,15 @@ def main():
         if command_to_run == 'c':
             print("Calibrate the arm")
             print("TODO: 3 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_calibration(arm_motor, touch_sensor)
+            arm_calibration(arm_motor, touch_sensor)
         elif command_to_run == 'u':
             print("Move the arm to the up position")
             print("TODO: 4 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_up(arm_motor, touch_sensor)
+            arm_up(arm_motor, touch_sensor)
         elif command_to_run == 'd':
             print("Move the arm to the down position")
             print("TODO: 5 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_down(arm_motor)
+            arm_down(arm_motor)
         elif command_to_run == 'q':
             break
         else:
@@ -76,13 +76,13 @@ def arm_calibration(arm_motor, touch_sensor):
     arm_motor.run_forever(speed_sp=100)
     while not touch_sensor:
         time.sleep(0.01)
-    arm_motor.stop(stop_action="coast")
-
-    arm_revolutions_for_full_range = 14.2
-    arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range)
-    arm_motor.wait_while(ev3.Motor.STATE_STALLED)
-
-    arm_motor.position = 0  # Calibrate the down position as 0 (this line is correct as is).
+    arm_motor.stop(stop_action="brake")
+    #
+    # arm_revolutions_for_full_range = 14.2
+    # arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range)
+    # arm_motor.wait_while(ev3.Motor.STATE_STALLED)
+    #
+    # arm_motor.position = 0  # Calibrate the down position as 0 (this line is correct as is).
 
 
 def arm_up(arm_motor, touch_sensor):
