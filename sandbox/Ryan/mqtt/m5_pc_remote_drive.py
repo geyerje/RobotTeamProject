@@ -22,7 +22,7 @@ You will need to have the following features:
 
 You can start by running the code to see the GUI, but don't expect button clicks to do anything useful yet.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
+Authors: David Fisher and Ryan Antenore.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import tkinter
@@ -34,7 +34,7 @@ import mqtt_remote_method_calls as com
 def main():
     # TODO: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
-    mqtt_client = None  # Delete this line, it was added temporarily so that the code we gave you had no errors.
+    # Delete this line, it was added temporarily so that the code we gave you had no errors.
 
     root = tkinter.Tk()
     root.title("MQTT Remote")

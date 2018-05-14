@@ -28,7 +28,9 @@ class Snatch3r(object):
 
         assert self.left_motor.connected
         assert self.right_motor.connected
-
+    def move(self, left_speed, right_speed):
+        self.right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
     def forward(self, inches, speed=100, stop_action='brake'):
         K = 360 / 4.2
         degrees_motor = K * inches
