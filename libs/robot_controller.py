@@ -48,3 +48,8 @@ class Snatch3r(object):
     def loop_forever(self):
         while True:
             time.sleep(0.05)
+
+    def stop(self):
+        self.left_motor.stop()
+        self.right_motor.stop()
+        time.sleep(0.05)
