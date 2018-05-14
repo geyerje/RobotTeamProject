@@ -51,7 +51,7 @@ class Snatch3r(object):
         while True:
             time.sleep(0.05)
 
-    def stop(self):
+    def stop_robot(self):
         self.left_motor.stop()
         self.right_motor.stop()
         time.sleep(0.05)
