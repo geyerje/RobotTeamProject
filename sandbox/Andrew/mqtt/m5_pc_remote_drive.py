@@ -35,6 +35,7 @@ def main():
     # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
     mqtt_client = com.MqttClient()  # Delete this line, it was added temporarily so that the code we gave you had no errors.
+    mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
     root.title("MQTT Remote")
@@ -125,24 +126,23 @@ def main():
 # Arm command callbacks
 def send_forward(mqtt_client, left, right):
     print("robot_forward")
-    mqtt_client.send_message("move",[left, right])
+    mqtt_client.send_message("move", [left, right])
 
 def send_back(mqtt_client, left, right):
     print("robot_back")
-    mqtt_client.send_message("move",[-left, -right])
+    mqtt_client.send_message("move", [-left, -right])
 
 def send_right(mqtt_client, left, right):
     print("robot_right")
-    mqtt_client.send_message("move",[left, -right])
+    mqtt_client.send_message("move", [left, -right])
 
 def send_left(mqtt_client, left, right):
     print("robot_left")
-    mqtt_client.send_message("move",[-left, right])
+    mqtt_client.send_message("move", [-left, right])
 
 def send_up(mqtt_client):
     print("arm_up")
     mqtt_client.send_message("arm_up")
-
 
 def send_down(mqtt_client):
     print("arm_down")
