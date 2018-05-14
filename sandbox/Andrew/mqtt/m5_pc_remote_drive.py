@@ -65,7 +65,7 @@ def main():
     # forward_button and '<Up>' key is done for your here...
     # forward_button['command'] = lambda: some_callback1(mqtt_client, left_speed_entry, right_speed_entry)
     # root.bind('<Up>', lambda event: some_callback1(mqtt_client, left_speed_entry, right_speed_entry))
-    forward_button['command'] = lambda: send_forward(mqtt_client)
+    forward_button['command'] = lambda: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
     root.bind('<Up>', lambda event: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
 
@@ -80,11 +80,14 @@ def main():
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
     # right_button and '<Right>' key
+    right_button['command'] = lambda: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+    root.bind('<Right>', lambda event: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
     # back_button and '<Down>' key
-    back_button['command'] = lambda: send_forward(mqtt_client)
+    back_button['command'] = lambda: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
     root.bind('<Down>', lambda event: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -128,6 +131,14 @@ def send_forward(mqtt_client, left, right):
 def send_back(mqtt_client, left, right):
     print("robot_back")
     mqtt_client.send_message("move",[-left, -right])
+
+def send_right(mqtt_client, left, right):
+    print("robot_right")
+    mqtt_client.send_message("move",[left, -right])
+
+def send_left(mqtt_client, left, right):
+    print("robot_left")
+    mqtt_client.send_message("move",[-left, right])
 
 def send_up(mqtt_client):
     print("arm_up")
