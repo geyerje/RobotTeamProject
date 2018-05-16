@@ -1,30 +1,3 @@
-#!/usr/bin/env python3
-"""
-This module is the mini-project for the MQTT unit.  This module will be running on your PC and communicating with the
-ev3_Proj.py module that is running on your EV3 (you have to write that module too, but it's easier).
-Only the Tkinter GUI has been made for you.  You will need to implement all of the MQTT communication.  The goal is to
-have a program running on your computer that can control the EV3.
-
-You will need to have the following features:
-  -- Clickable drive direction buttons to drive forward (up), backwards (down), left, right, and stop (space)
-    -- Keyboard shortcut keys that behave the same as clicking the buttons (this has already been wired up for you)
-  -- An entry box for the left and right drive motor speeds.
-    -- If both become set to 900 all of the drive direction buttons will go fast, for example forward goes 900 900
-    -- If both become set to 300 all of the drive direction buttons will go slower, for example reverse goes -300 -300
-    -- If 500 then left does -500 500, which causes the robot to spin left (use half speed -250 250 if too fast)
-    -- If set differently to say 600 left, 300 right the robot will drive and arc, for example forward goes 600 300
-  -- In addition to the drive features there needs to be a clickable button for Arm Up and Arm Down
-    -- There also need to be keyboard shortcut for Arm Up (u) and Arm Down (j).  Arm calibration is not required.
-
-  -- Finally you need 2 buttons for ending your program:
-    -- Quit, which stops only this program and allows the EV3 program to keep running
-    -- Exit, which sends a shutdown message to the EV3, then ends it's own program as well.
-
-You can start by running the code to see the GUI, but don't expect button clicks to do anything useful yet.
-
-Authors: David Fisher and Andrew Novotny.
-"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
-
 import tkinter
 from tkinter import ttk
 
@@ -32,9 +5,7 @@ import mqtt_remote_method_calls as com
 
 
 def main():
-    # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
-    # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
-    mqtt_client = com.MqttClient()  # Delete this line, it was added temporarily so that the code we gave you had no errors.
+    mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -55,11 +26,6 @@ def main():
     right_speed_entry.insert(0, "600")
     right_speed_entry.grid(row=1, column=2)
 
-    # TODO: 3. Implement the callbacks for the drive buttons. Set both the click and shortcut key callbacks.
-    #
-    # To help get you started the arm up and down buttons have been implemented.
-    # You need to implement the five drive buttons.  One has been writen below to help get you started but is commented
-    # out. You will need to change some_callback1 to some better name, then pattern match for other button / key combos.
 
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
@@ -72,6 +38,8 @@ def main():
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
     # left_button and '<Left>' key
+    left_button['command'] = lambda: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
+    root.bind('<Right>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=3, column=1)
@@ -136,11 +104,11 @@ def send_back(mqtt_client, left, right):
 
 def send_right(mqtt_client, left, right):
     print("robot_right")
-    mqtt_client.send_message("move", [left, -right])
+    mqtt_client.send_message("move", [left, -int(right)])
 
 def send_left(mqtt_client, left, right):
     print("robot_left")
-    mqtt_client.send_message("move", [-left, right])
+    mqtt_client.send_message("move", [-int(left), right])
 
 def stop(mqtt_client):
     print("robot_stop")
