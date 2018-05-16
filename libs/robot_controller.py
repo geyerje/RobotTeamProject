@@ -27,10 +27,12 @@ class Snatch3r(object):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
 
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
+        assert self.cs
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -74,12 +76,12 @@ class Snatch3r(object):
         self.left_motor.stop()
 
     def arm_up(self):
-        self.arm_motor.run_forever(speed_sp=400)
+        while True:
+            self.arm_motor.run_forever(speed_sp=400)
+            time.sleep(0.05)
+            if self.touchyboy.is_pressed:
+                self.arm_motor.stop()
 
-        # while ev3.TouchSensor.is_pressed == False:
-        #     self.arm_motor.run_forever(speed_sp=400)
-        # self.arm_motor.stop()
-        # time.sleep(0.05)
 
 
     def arm_down(self):
@@ -89,7 +91,9 @@ class Snatch3r(object):
     def printer(self, value):
         print(value)
 
-    def move2(self, left_speed, right_speed, color):
+
+    #Stops moving the robot when it hits a black line
+    def move2(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
         if self.cs.color is ev3.ColorSensor.COLOR_BLACK:
