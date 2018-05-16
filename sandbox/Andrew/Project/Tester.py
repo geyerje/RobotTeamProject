@@ -16,15 +16,14 @@ def main():
 
     ColorButton = ttk.Button(main_frame, text="Get Color")
     ColorButton.grid(row=0, column=0)
-    ColorButton['command'] = lambda: printer(mqtt_client, COLORSENSORVALUE)
+    ColorButton['command'] = lambda: move2(mqtt_client, 400, 400)
 
     root.mainloop()
 
 left = 100
 right = 100
 
-def forward(mqtt_client, left, right):
-    print("robot_right")
-    mqtt_client.send_message("move", [left, -int(right)])
+def move2(mqtt_client, left, right):
+    mqtt_client.send_message("move2", [left, right])
 
 main()

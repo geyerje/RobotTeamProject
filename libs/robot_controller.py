@@ -80,13 +80,12 @@ class Snatch3r(object):
             self.arm_motor.run_forever(speed_sp=400)
             time.sleep(0.05)
             if self.touchyboy.is_pressed:
-                self.arm_motor.stop()
-
+                break
+        self.arm_motor.stop()
 
 
     def arm_down(self):
-        self.arm_motor.run_to_rel_pos(positions_sp=388.7856, speed_sp=-400)
-        time.sleep(0.05)
+        self.arm_motor.run_forever(speed_sp=-400)
 
     def printer(self, value):
         print(value)
