@@ -15,6 +15,8 @@ import ev3dev.ev3 as ev3
 import math
 import time
 
+left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
@@ -43,12 +45,6 @@ class Snatch3r(object):
         self.left_motor.wait_while('running')
         self.right_motor.wait_while('running')
 
-    def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
-        self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-        self.right_motor.run_to_rel_pos(position_sp=-degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-        self.left_motor.wait_while('running')
-        self.right_motor.wait_while('running')
-
     def loop_forever(self):
         while True:
             time.sleep(0.05)
@@ -59,11 +55,34 @@ class Snatch3r(object):
         self.arm_motor.stop()
         time.sleep(0.05)
 
-    def arm_up(self):
-        self.arm_motor.run_forever(speed_sp=150)
+    def turn_left_by_encoders(self, degrees, speed):
+        dis = (degrees / 0.23149)
+        right_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        left_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        right_motor.stop()
+        left_motor.stop()
 
-    def arm_down(self):
-        self.arm_motor.run_forever(speed_sp=-150)
+    def turn_right_by_encoders(self, degrees, speed):
+        dis = (degrees / 0.23149)
+        right_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        left_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        right_motor.stop()
+        left_motor.stop()
+
+    def arm_up(self, speed):
+        self.arm_motor.run_forever(speed_sp=speed)
+
+    def arm_down(self, speed):
+        self.arm_motor.run_forever(speed_sp=-speed)
 
 
+    # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
+    #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
+    #     self.right_motor.run_to_rel_pos(position_sp=-degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
+    #     self.left_motor.wait_while('running')
+    #     self.right_motor.wait_while('running')
 
