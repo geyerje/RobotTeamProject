@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 This module is the mini-project for the MQTT unit.  This module will be running on your PC and communicating with the
-m5_ev3_remote_drive.py module that is running on your EV3 (you have to write that module too, but it's easier).
+ev3_Proj.py module that is running on your EV3 (you have to write that module too, but it's easier).
 Only the Tkinter GUI has been made for you.  You will need to implement all of the MQTT communication.  The goal is to
 have a program running on your computer that can control the EV3.
 
