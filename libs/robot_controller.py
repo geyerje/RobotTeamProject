@@ -74,7 +74,7 @@ class Snatch3r(object):
         left_motor.stop()
 
     def arm_up(self):
-        while ev3.TouchSensor == 0:
+        while ev3.TouchSensor.is_pressed == False:
             self.arm_motor.run_forever(speed_sp=400)
         self.arm_motor.stop()
         time.sleep(0.05)
