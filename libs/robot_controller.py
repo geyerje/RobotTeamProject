@@ -15,8 +15,6 @@ import ev3dev.ev3 as ev3
 import math
 import time
 
-left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
@@ -25,6 +23,7 @@ class Snatch3r(object):
     # (and delete these comments)
 
     def __init__(self):
+        self.cs = ev3.ColorSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
@@ -89,6 +88,14 @@ class Snatch3r(object):
 
     def printer(self, value):
         print(value)
+
+    def move2(self, left_speed, right_speed, color):
+        self.right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
+        if self.cs.color is ev3.ColorSensor.COLOR_BLACK:
+            self.left_motor.stop()
+            self.right_motor.stop()
+            time.sleep(0.05)
 
     # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
     #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
