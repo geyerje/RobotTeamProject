@@ -87,7 +87,8 @@ class Snatch3r(object):
         self.arm_motor.stop()
         time.sleep(0.05)
 
-
+    def printer(self, value):
+        print(value)
 
     # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
     #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
