@@ -86,6 +86,8 @@ class Snatch3r(object):
 
     def arm_down(self):
         self.arm_motor.run_forever(speed_sp=-400)
+        time.sleep(14.5)
+        self.arm_motor.stop()
 
     def printer(self, value):
         print(value)
