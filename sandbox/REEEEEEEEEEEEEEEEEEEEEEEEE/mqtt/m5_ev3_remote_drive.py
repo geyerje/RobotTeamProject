@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-For the full problem statement and details see the corresponding m5_pc_remote_drive.py comments.
+For the full problem statement and details see the corresponding pc_proj.py comments.
 
 There are many solutions to this problem.  The easiest solution on the EV3 side is to NOT bother makes a wrapper
 class for the robot object.  Since the challenge presented is very direct it's easiest to just use the Snatch3r class
