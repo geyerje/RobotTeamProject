@@ -44,6 +44,7 @@ class Snatch3r(object):
         self.right_motor.run_to_rel_pos(position_sp=degrees_motor, speed_sp=8 * speed, stop_action=stop_action)
         self.left_motor.wait_while('running')
         self.right_motor.wait_while('running')
+        
 
     def loop_forever(self):
         while True:
@@ -74,10 +75,18 @@ class Snatch3r(object):
         left_motor.stop()
 
     def arm_up(self, speed):
-        self.arm_motor.run_forever(speed_sp=speed)
+        while ev3.TouchSensor == 0:
+            self.arm_motor.run_forever(speed_sp=speed)
+        self.arm_motor.stop()
+        time.sleep(0.05)
+
 
     def arm_down(self, speed):
         self.arm_motor.run_forever(speed_sp=-speed)
+        time.sleep(3)
+        self.arm_motor.stop()
+        time.sleep(0.05)
+
 
 
     # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
