@@ -72,6 +72,9 @@ def main():
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
     # left_button and '<Left>' key
+    left_button['command'] = lambda: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
+    root.bind('<Right>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=3, column=1)
@@ -132,15 +135,15 @@ def send_forward(mqtt_client, left, right):
 
 def send_back(mqtt_client, left, right):
     print("robot_back")
-    mqtt_client.send_message("move", [-left, -right])
+    mqtt_client.send_message("move", [-int(left), -int(right)])
 
 def send_right(mqtt_client, left, right):
     print("robot_right")
-    mqtt_client.send_message("move", [left, -right])
+    mqtt_client.send_message("move", [left, -int(right)])
 
 def send_left(mqtt_client, left, right):
     print("robot_left")
-    mqtt_client.send_message("move", [-left, right])
+    mqtt_client.send_message("move", [-int(left), right])
 
 def stop(mqtt_client):
     print("robot_stop")
