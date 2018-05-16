@@ -56,13 +56,14 @@ class Snatch3r(object):
     def stop_robot(self):
         self.left_motor.stop()
         self.right_motor.stop()
+        self.arm_motor.stop()
         time.sleep(0.05)
 
     def arm_up(self):
-        self.arm_motor.run_forever(speed_sp=50)
+        self.arm_motor.run_forever(speed_sp=150)
 
     def arm_down(self):
-        self.arm_motor.run_forever(speed_sp=-50)
+        self.arm_motor.run_forever(speed_sp=-150)
 
 
 
