@@ -57,21 +57,21 @@ class Snatch3r(object):
 
     def turn_left_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
-        right_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
-        left_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
-        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        right_motor.stop()
-        left_motor.stop()
+        self.right_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        self.left_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.stop()
+        self.left_motor.stop()
 
     def turn_right_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
-        right_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
-        left_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
-        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        right_motor.stop()
-        left_motor.stop()
+        self.right_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        self.left_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.stop()
+        self.left_motor.stop()
 
     def arm_up(self):
         self.arm_motor.run_forever(speed_sp=400)
