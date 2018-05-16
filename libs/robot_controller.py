@@ -73,16 +73,15 @@ class Snatch3r(object):
         right_motor.stop()
         left_motor.stop()
 
-    def arm_up(self, speed=200):
+    def arm_up(self):
         while ev3.TouchSensor == 0:
-            self.arm_motor.run_forever(speed_sp=speed)
+            self.arm_motor.run_forever(speed_sp=400)
         self.arm_motor.stop()
         time.sleep(0.05)
 
 
-    def arm_down(self, speed=200):
-        self.arm_motor.run_forever(speed_sp=-speed)
-        self.arm_motor.run_to_rel_pos(positions_sp=388.7856, speed_sp=speed)
+    def arm_down(self):
+        self.arm_motor.run_to_rel_pos(positions_sp=388.7856, speed_sp=-400)
         time.sleep(0.05)
 
     def printer(self, value):
