@@ -23,7 +23,7 @@ class Snatch3r(object):
     # (and delete these comments)
 
     def __init__(self):
-        self.cs = ev3.ColorSensor()
+        self.color_sensor = ev3.ColorSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
@@ -32,7 +32,7 @@ class Snatch3r(object):
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
-        assert self.cs
+        assert self.color_sensor
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -97,7 +97,7 @@ class Snatch3r(object):
     def move2(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
-        if self.cs.color is ev3.ColorSensor.COLOR_BLACK:
+        if self.color_sensor.color == 1:
             self.left_motor.stop()
             self.right_motor.stop()
             time.sleep(0.05)
