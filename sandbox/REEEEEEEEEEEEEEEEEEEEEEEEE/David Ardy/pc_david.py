@@ -1,9 +1,3 @@
-# class RobotDelegate(object):
-#     def __init__(self):
-#         self.robot = robo.Snatch3r()
-#
-#     def blah(self):
-#         self.robot
 
 
 import tkinter
@@ -40,7 +34,7 @@ def main():
     root.bind('<Right>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     button_right = ttk.Button(main_frame, text="Right")
-    button_left.grid(row=3, column=3)
+    button_right.grid(row=3, column=3)
     button_right['command'] = lambda event: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
     root.bind('<Right>', lambda event: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
