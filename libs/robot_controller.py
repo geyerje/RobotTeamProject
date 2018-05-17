@@ -23,14 +23,16 @@ class Snatch3r(object):
     # (and delete these comments)
 
     def __init__(self):
-        self.cs = ev3.ColorSensor()
+        self.color_sensor = ev3.ColorSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
 
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
+        assert self.color_sensor
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -57,40 +59,45 @@ class Snatch3r(object):
 
     def turn_left_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
-        right_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
-        left_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
-        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        right_motor.stop()
-        left_motor.stop()
+        self.right_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        self.left_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.stop()
+        self.left_motor.stop()
 
     def turn_right_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
-        right_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
-        left_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
-        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        right_motor.stop()
-        left_motor.stop()
+        self.right_motor.run_to_rel_pos(position_sp=-dis, speed_sp=speed)
+        self.left_motor.run_to_rel_pos(position_sp=dis, speed_sp=speed)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.stop()
+        self.left_motor.stop()
 
     def arm_up(self):
-        while ev3.TouchSensor.is_pressed == False:
+        while True:
             self.arm_motor.run_forever(speed_sp=400)
+            time.sleep(0.05)
+            if self.touchyboy.is_pressed:
+                break
         self.arm_motor.stop()
-        time.sleep(0.05)
 
 
     def arm_down(self):
-        self.arm_motor.run_to_rel_pos(positions_sp=388.7856, speed_sp=-400)
-        time.sleep(0.05)
+        self.arm_motor.run_forever(speed_sp=-400)
+        time.sleep(14.5)
+        self.arm_motor.stop()
 
     def printer(self, value):
         print(value)
 
-    def move2(self, left_speed, right_speed, color):
+
+    #Stops moving the robot when it hits a black line
+    def move2(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
-        if self.cs.color is ev3.ColorSensor.COLOR_BLACK:
+        if self.color_sensor.color == 1:
             self.left_motor.stop()
             self.right_motor.stop()
             time.sleep(0.05)
