@@ -95,12 +95,15 @@ class Snatch3r(object):
 
     #Stops moving the robot when it hits a black line
     def move2(self, left_speed, right_speed):
-        self.right_motor.run_forever(speed_sp=right_speed)
-        self.left_motor.run_forever(speed_sp=left_speed)
-        if self.color_sensor.color == 1:
-            self.left_motor.stop()
-            self.right_motor.stop()
-            time.sleep(0.05)
+        # self.right_motor.run_forever(speed_sp=right_speed)
+        # self.left_motor.run_forever(speed_sp=left_speed)
+        # if self.color_sensor.color == 1:
+        #     self.left_motor.stop()
+        #     self.right_motor.stop()
+        #     time.sleep(0.05)
+        print('1')
+        print(self.color_sensor.reflected_light_intensity)
+        print(self.color_sensor.color)
 
     # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
     #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
