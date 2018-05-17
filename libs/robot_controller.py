@@ -24,15 +24,18 @@ class Snatch3r(object):
 
     def __init__(self):
         self.color_sensor = ev3.ColorSensor()
+        self.pixy = ev3.Sensor(driver_name="pixy-lego")
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
 
+
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
         assert self.color_sensor
+        assert self.pixy
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -75,6 +78,14 @@ class Snatch3r(object):
         self.right_motor.stop()
         self.left_motor.stop()
 
+    def turn_left(self, speed):
+        self.right_motor.run_forever(speed_sp=speed)
+        self.left_motor.run_forever(speed_sp=-speed)
+
+    def turn_right(self, speed):
+        self.right_motor.run_forever(speed_sp=-speed)
+        self.left_motor.run_forever(speed_sp=speed)
+
     def arm_up(self):
         while True:
             self.arm_motor.run_forever(speed_sp=400)
@@ -105,9 +116,6 @@ class Snatch3r(object):
         print(self.color_sensor.reflected_light_intensity)
         print(self.color_sensor.color)
 
-    # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
-    #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-    #     self.right_motor.run_to_rel_pos(position_sp=-degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-    #     self.left_motor.wait_while('running')
-    #     self.right_motor.wait_while('running')
+    #makes the robot print the current location of SIG1 object
+
 
