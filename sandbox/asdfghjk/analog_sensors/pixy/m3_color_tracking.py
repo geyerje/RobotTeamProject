@@ -39,21 +39,25 @@ def main():
                 pixy.value(4)))
 
             while pixy.value(1) == 0:
-                time.sleep(0.5)
+                time.sleep(1)
 
-            while pixy.value(1) < 150:
+            print("(X, Y)=({}, {}) Width={} Height={}".format(
+                pixy.value(1), pixy.value(2), pixy.value(3),
+                pixy.value(4)))
+
+            while pixy.value(1) < 170:
                 robot.turn_left(100)
             robot.left_motor.stop()
             robot.right_motor.stop()
             time.sleep(0.05)
 
-            while pixy.value(1) > 170:
+            while pixy.value(1) > 190:
                 robot.turn_right(100)
             robot.left_motor.stop()
             robot.right_motor.stop()
             time.sleep(0.05)
 
-            while pixy.value(1) > 150 and pixy.value(1) < 170:
+            while pixy.value(1) > 170 and pixy.value(1) < 190:
                 time.sleep(0.2)
 
 

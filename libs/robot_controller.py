@@ -25,6 +25,7 @@ class Snatch3r(object):
     def __init__(self):
         self.color_sensor = ev3.ColorSensor(ev3.INPUT_3)
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
+        self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
@@ -36,6 +37,7 @@ class Snatch3r(object):
         assert self.arm_motor.connected
         assert self.color_sensor
         assert self.pixy
+        assert self.ir_sensor
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -117,5 +119,25 @@ class Snatch3r(object):
         print(self.color_sensor.color)
 
     #makes the robot print the current location of SIG1 object
+
+    #finds an object trained to pixy 1 and centers the robot on it
+    def re_center(self):
+            while self.pixy.value(1) < 170:
+                self.turn_left(100)
+            self.left_motor.stop()
+            self.right_motor.stop()
+            time.sleep(0.05)
+
+            while self.pixy.value(1) > 190:
+                self.turn_right(100)
+            self.left_motor.stop()
+            self.right_motor.stop()
+            time.sleep(0.05)
+
+
+
+
+
+
 
 
