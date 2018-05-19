@@ -4,8 +4,15 @@ from tkinter import ttk
 import mqtt_remote_method_calls as com
 
 
+class Computer(object):
+    def __init__(self):
+        pass
+    def printer(self, value):
+        print(value)
+
 def main():
-    mqtt_client = com.MqttClient()
+    comp = Computer()
+    mqtt_client = com.MqttClient(comp)
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
