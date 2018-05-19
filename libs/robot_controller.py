@@ -134,7 +134,13 @@ class Snatch3r(object):
             self.right_motor.stop()
             time.sleep(0.05)
 
-
+    def move3(self, left_speed, right_speed):
+        
+        if self.color_sensor.color == 1:
+            self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+            self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+        self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
+        self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
 
 
 
