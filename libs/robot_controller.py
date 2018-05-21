@@ -135,14 +135,14 @@ class Snatch3r(object):
             self.right_motor.stop()
             time.sleep(0.05)
 
+    def resetter(self):
+        self.count = 0
+
     def move3(self, left_speed, right_speed):
         if self.count >=3:
             ev3.Sound.speak('Press red button to reset')
             while True:
-                if self.touchyboy.is_pressed:
-                    self.count = 0
-                    print('PRESS RED BUTTON TO RESET')
-                    break
+                return
         elif self.color_sensor.reflected_light_intensity <=20:
             self.right_motor.run_timed(speed_sp=-800, time_sp=100)
             self.left_motor.run_timed(speed_sp=-800, time_sp=100)
@@ -156,6 +156,7 @@ class Snatch3r(object):
 
 
 
+# Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
 
 
 
