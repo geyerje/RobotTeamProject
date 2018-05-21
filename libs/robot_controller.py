@@ -137,7 +137,6 @@ class Snatch3r(object):
 
     def move3(self, left_speed, right_speed):
         if self.count >=3:
-            mqtt_client.send_message('printer', ['PRESS BUTTON TO RESET'])
             ev3.Sound.speak('Press red button to reset')
             while True:
                 if self.touchyboy.is_pressed:
