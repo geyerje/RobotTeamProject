@@ -23,13 +23,14 @@ class Snatch3r(object):
     # (and delete these comments)
 
     def __init__(self):
-        self.color_sensor = ev3.ColorSensor(ev3.INPUT_3)
+        self.color_sensor = ev3.ColorSensor()
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
         self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
+        self.count = 0
 
 
         assert self.left_motor.connected
@@ -135,12 +136,24 @@ class Snatch3r(object):
             time.sleep(0.05)
 
     def move3(self, left_speed, right_speed):
-
-        if self.color_sensor.color == 1:
+        if self.count >=3:
+            mqtt_client.send_message('printer', ['PRESS BUTTON TO RESET'])
+            ev3.Sound.speak('Press red button to reset')
+            while True:
+                if self.touchyboy.is_pressed:
+                    self.count = 0
+                    print('PRESS RED BUTTON TO RESET')
+                    break
+        elif self.color_sensor.reflected_light_intensity <=20:
             self.right_motor.run_timed(speed_sp=-800, time_sp=100)
             self.left_motor.run_timed(speed_sp=-800, time_sp=100)
-        self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
-        self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
+            ev3.Sound.speak('LOOK OUT!')
+            self.count += 1
+            time.sleep(2)
+            return
+        else:
+            self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
+            self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
 
 
 

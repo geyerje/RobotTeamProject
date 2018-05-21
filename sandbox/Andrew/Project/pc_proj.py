@@ -11,8 +11,7 @@ class Computer(object):
         print(value)
 
 def main():
-    comp = Computer()
-    mqtt_client = com.MqttClient(comp)
+    mqtt_client = com.MqttClient(Computer())
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
