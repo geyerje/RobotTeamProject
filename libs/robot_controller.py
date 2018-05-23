@@ -226,9 +226,10 @@ class Snatch3r(object):
 
         self.re_center()
 
-        # while self.color_sensor.color != 1:
-        #     self.move(600, 600)
-        # self.stop_robot()
+        while self.color_sensor.color != 1:
+            self.move(600, 600)
+            time.sleep(1)
+        self.stop_robot()
 
 
     #    if self.color_sensor.color == 1:
