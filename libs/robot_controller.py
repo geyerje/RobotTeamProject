@@ -137,25 +137,56 @@ class Snatch3r(object):
             time.sleep(0.05)
 
     def resetter(self):
-        self.count = 0
+        while True:
+            if self.touchyboy.is_pressed:
+                self.count = 0
+                break
 
-    def move3(self, left_speed, right_speed):
-        if self.count >=3:
-            ev3.Sound.speak('Press red button to reset')
-            while True:
+    def move3(self, left_speed, right_speed, value):
+        if value == 0:
+            if self.count >=3:
+                ev3.Sound.speak('Press red button to reset')
+                self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
+                while True:
+                    self.resetter()
+                    return
+            elif self.color_sensor.reflected_light_intensity <=20:
+                self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                ev3.Sound.speak('LOOK OUT!')
+                self.count += 1
+                self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                time.sleep(2)
                 return
-        elif self.color_sensor.reflected_light_intensity <=20:
-            self.right_motor.run_timed(speed_sp=-800, time_sp=100)
-            self.left_motor.run_timed(speed_sp=-800, time_sp=100)
-            ev3.Sound.speak('LOOK OUT!')
-            self.count += 1
-            self.mqtt.send_message("printer")
-            time.sleep(2)
-            return
+            else:
+                self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
+                self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
         else:
-            self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
-            self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
-
+            if self.count >=3:
+                ev3.Sound.speak('Press red button to reset')
+                self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
+                while True:
+                    self.resetter()
+                    return
+            elif self.color_sensor.reflected_light_intensity <=20:
+                self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                ev3.Sound.speak('LOOK OUT!')
+                self.count += 1
+                self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                time.sleep(2)
+                return
+            else:
+                self.right_motor.run_forever(speed_sp=right_speed)
+                self.left_motor.run_forever(speed_sp=left_speed)
+                if self.color_sensor.reflected_light_intensity <= 20:
+                    self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                    self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                    ev3.Sound.speak('LOOK OUT!')
+                    self.count += 1
+                    self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                    time.sleep(2)
+                    return
 
 
 # Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
