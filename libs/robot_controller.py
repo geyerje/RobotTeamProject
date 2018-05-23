@@ -32,6 +32,7 @@ class Snatch3r(object):
         self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
         self.count = 0
+        self.positions = [0, 0]
 
 
         assert self.left_motor.connected
@@ -63,6 +64,7 @@ class Snatch3r(object):
         self.right_motor.stop()
         self.arm_motor.stop()
         time.sleep(0.05)
+        self.positions.extend((self.left_motor.position, self.right_motor.position))
 
     def turn_left_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
@@ -126,14 +128,12 @@ class Snatch3r(object):
     def re_center(self):
             while self.pixy.value(1) < 170:
                 self.turn_left(100)
-            self.left_motor.stop()
-            self.right_motor.stop()
+            self.stop_robot()
             time.sleep(0.05)
 
             while self.pixy.value(1) > 190:
                 self.turn_right(100)
-            self.left_motor.stop()
-            self.right_motor.stop()
+            self.stop_robot()
             time.sleep(0.05)
 
     def resetter(self):

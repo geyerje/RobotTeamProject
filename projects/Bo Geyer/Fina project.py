@@ -59,14 +59,12 @@ def main():
 
             while pixy.value(1) < 170:
                 robot.turn_left(200)
-            robot.left_motor.stop()
-            robot.right_motor.stop()
+            robot.stop_robot()
             time.sleep(0.05)
 
             while pixy.value(1) > 190:
                 robot.turn_right(200)
-            robot.left_motor.stop()
-            robot.right_motor.stop()
+            robot.stop_robot()
             time.sleep(0.05)
 
             while pixy.value(1) > 170 and pixy.value(1) < 190:
@@ -77,15 +75,13 @@ def main():
                     robot.move(400, 400)
                     print(pixy.value(1))
                     if (pixy.value(1) < 170 or pixy.value(1) > 190):
-                        robot.left_motor.stop()
-                        robot.right_motor.stop()
+                        robot.stop_robot()
                         robot.re_center()
                 while ir_sensor.proximity > 0:
                     robot.move(150,150)
                     time.sleep(0.1)
                     print(ir_sensor.proximity)
-                robot.left_motor.stop()
-                robot.right_motor.stop()
+                robot.stop_robot()
                 time.sleep(1)
 
                 robot.arm_up()
