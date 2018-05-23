@@ -100,6 +100,15 @@ class Snatch3r(object):
                 break
         self.arm_motor.stop()
 
+    def arm_close(self):
+        self.arm_motor.run_forever(speed_sp=400)
+        time.sleep(5)
+        self.arm_motor.stop()
+
+    def arm_open(self):
+        self.arm_motor.run_forever(speed_sp=-400)
+        time.sleep(5)
+        self.arm_motor.stop()
 
     def arm_down(self):
         self.arm_motor.run_forever(speed_sp=-400)
@@ -126,6 +135,20 @@ class Snatch3r(object):
 
     #finds an object trained to pixy 1 and centers the robot on it
     def re_center(self):
+            while self.pixy.value(1) < 170:
+                self.turn_left(100)
+            self.stop_robot()
+            time.sleep(0.05)
+
+            while self.pixy.value(1) > 190:
+                self.turn_right(100)
+            self.stop_robot()
+            time.sleep(0.05)
+    def re_centerryan(self):
+            while self.pixy.value(1) == 0:
+                time.sleep(.1)
+                print('no object')
+
             while self.pixy.value(1) < 170:
                 self.turn_left(100)
             self.stop_robot()
@@ -198,6 +221,20 @@ class Snatch3r(object):
 
 
 # Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
+    # Ryans code
+    def ryan_start(self):
+
+        self.re_center()
+
+        # while self.color_sensor.color != 1:
+        #     self.move(600, 600)
+        # self.stop_robot()
+
+
+    #    if self.color_sensor.color == 1:
+    #     self.left_motor.stop()
+    #     self.right_motor.stop()
+    #     time.sleep(0.05)
 
 
 
