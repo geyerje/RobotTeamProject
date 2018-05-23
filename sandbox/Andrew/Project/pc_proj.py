@@ -7,8 +7,8 @@ import mqtt_remote_method_calls as com
 class Computer(object):
     def __init__(self):
         pass
-    def printer(self, value):
-        print(value)
+    def printer(self):
+        print("LOOK OUT FOR THE LINE")
 
 def main():
     mqtt_client = com.MqttClient(Computer())
@@ -65,16 +65,6 @@ def main():
     # back_button and '<Down>' key
     back_button['command'] = lambda: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
     root.bind('<Down>', lambda event: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
-
-    up_button = ttk.Button(main_frame, text="Up")
-    up_button.grid(row=5, column=0)
-    up_button['command'] = lambda: send_up(mqtt_client)
-    root.bind('<u>', lambda event: send_up(mqtt_client))
-
-    down_button = ttk.Button(main_frame, text="Down")
-    down_button.grid(row=6, column=0)
-    down_button['command'] = lambda: send_down(mqtt_client)
-    root.bind('<j>', lambda event: send_down(mqtt_client))
 
     # Buttons for quit and exit
     q_button = ttk.Button(main_frame, text="Quit")

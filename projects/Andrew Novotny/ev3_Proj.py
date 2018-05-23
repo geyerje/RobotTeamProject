@@ -5,6 +5,7 @@ import ev3dev as ev3
 def main():
     robot = robo.Snatch3r()
     mqtt_client = com.MqttClient(robot)
+    robot.mqtt = mqtt_client
     mqtt_client.connect_to_pc()
     robot.loop_forever()
 

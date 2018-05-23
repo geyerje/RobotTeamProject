@@ -29,6 +29,7 @@ class Snatch3r(object):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
         self.count = 0
 
@@ -148,6 +149,7 @@ class Snatch3r(object):
             self.left_motor.run_timed(speed_sp=-800, time_sp=100)
             ev3.Sound.speak('LOOK OUT!')
             self.count += 1
+            self.mqtt.send_message("printer")
             time.sleep(2)
             return
         else:
