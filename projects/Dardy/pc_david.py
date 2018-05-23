@@ -42,12 +42,12 @@ def main():
 
 
 def send_left(mqtt_client, left, right):
-    print("robot_left with left speed ", [-int(left), " and right speed ", right])
+    print("robot_left with left speed", -int(left), "and right speed", right)
     mqtt_client.send_message("move", [-int(left), right])
 
 
 def send_right(mqtt_client, left, right):
-    print("robot_right")
+    print("robot_right with left speed", left, "and right speed", -int(right))
     mqtt_client.send_message("move", [left, -int(right)])
 
 

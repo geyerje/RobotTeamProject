@@ -24,15 +24,22 @@ class Snatch3r(object):
 
     def __init__(self):
         self.color_sensor = ev3.ColorSensor()
+        self.pixy = ev3.Sensor(driver_name="pixy-lego")
+        self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
+        self.count = 0
+
 
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
         assert self.color_sensor
+        assert self.pixy
+        assert self.ir_sensor
 
     def move(self, left_speed, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
@@ -75,6 +82,14 @@ class Snatch3r(object):
         self.right_motor.stop()
         self.left_motor.stop()
 
+    def turn_left(self, speed):
+        self.right_motor.run_forever(speed_sp=speed)
+        self.left_motor.run_forever(speed_sp=-speed)
+
+    def turn_right(self, speed):
+        self.right_motor.run_forever(speed_sp=-speed)
+        self.left_motor.run_forever(speed_sp=speed)
+
     def arm_up(self):
         while True:
             self.arm_motor.run_forever(speed_sp=400)
@@ -95,16 +110,86 @@ class Snatch3r(object):
 
     #Stops moving the robot when it hits a black line
     def move2(self, left_speed, right_speed):
-        self.right_motor.run_forever(speed_sp=right_speed)
-        self.left_motor.run_forever(speed_sp=left_speed)
-        if self.color_sensor.color == 1:
+        # self.right_motor.run_forever(speed_sp=right_speed)
+        # self.left_motor.run_forever(speed_sp=left_speed)
+        # if self.color_sensor.color == 1:
+        #     self.left_motor.stop()
+        #     self.right_motor.stop()
+        #     time.sleep(0.05)
+        print('1')
+        print(self.color_sensor.reflected_light_intensity)
+        print(self.color_sensor.color)
+
+    #makes the robot print the current location of SIG1 object
+
+    #finds an object trained to pixy 1 and centers the robot on it
+    def re_center(self):
+            while self.pixy.value(1) < 170:
+                self.turn_left(100)
             self.left_motor.stop()
             self.right_motor.stop()
             time.sleep(0.05)
 
-    # def turn_degrees(self, degrees_to_turn, turn_speed_sp, stop_action = 'brake'):
-    #     self.left_motor.run_to_rel_pos(position_sp=degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-    #     self.right_motor.run_to_rel_pos(position_sp=-degrees_to_turn, speed_sp=8*turn_speed_sp, stop_action=stop_action)
-    #     self.left_motor.wait_while('running')
-    #     self.right_motor.wait_while('running')
+            while self.pixy.value(1) > 190:
+                self.turn_right(100)
+            self.left_motor.stop()
+            self.right_motor.stop()
+            time.sleep(0.05)
+
+    def resetter(self):
+        while True:
+            if self.touchyboy.is_pressed:
+                self.count = 0
+                break
+
+    def move3(self, left_speed, right_speed, value):
+        if value == 0:
+            if self.count >=3:
+                ev3.Sound.speak('Press red button to reset')
+                self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
+                while True:
+                    self.resetter()
+                    return
+            elif self.color_sensor.reflected_light_intensity <=20:
+                self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                ev3.Sound.speak('LOOK OUT!')
+                self.count += 1
+                self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                time.sleep(2)
+                return
+            else:
+                self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
+                self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
+        else:
+            if self.count >=3:
+                ev3.Sound.speak('Press red button to reset')
+                self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
+                while True:
+                    self.resetter()
+                    return
+            elif self.color_sensor.reflected_light_intensity <=20:
+                self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                ev3.Sound.speak('LOOK OUT!')
+                self.count += 1
+                self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                time.sleep(2)
+                return
+            else:
+                self.right_motor.run_forever(speed_sp=right_speed)
+                self.left_motor.run_forever(speed_sp=left_speed)
+                if self.color_sensor.reflected_light_intensity <= 20:
+                    self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+                    self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+                    ev3.Sound.speak('LOOK OUT!')
+                    self.count += 1
+                    self.mqtt.send_message("printer", ["LOOK OUT FOR THE LINE"])
+                    time.sleep(2)
+                    return
+
+
+# Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
+
+
 

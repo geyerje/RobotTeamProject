@@ -5,8 +5,8 @@ the robot so that it is always facing the color signature.  You will need to tea
 implement the code, then make the robot always face the color as you move it around.  The robot will only spin and never
 move forwards or backwards.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and James (Bo) Geyer.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -24,15 +24,44 @@ def main():
     # This code assumes you have setup the pixy object on the Snatch3r class.
     # Add the pixy property to that class if you have not done so already.
     robot = robo.Snatch3r()
-    robot.pixy.mode = "SIG1"
+    pixy = ev3.Sensor(driver_name="pixy-lego")
+    pixy.mode = "SIG1"
     turn_speed = 100
 
-    while not robot.touch_sensor.is_pressed:
+    while not robot.touchyboy.is_pressed:
 
-        # TODO: 2. Read the Pixy values for x and y
+        # DOne: 2. Read the Pixy values for x and y
         # Print the values for x and y
 
-        # TODO: 3. Use the x value to turn the robot
+        while True:
+            print("(X, Y)=({}, {}) Width={} Height={}".format(
+                pixy.value(1), pixy.value(2), pixy.value(3),
+                pixy.value(4)))
+
+            while pixy.value(1) == 0:
+                time.sleep(1)
+
+            print("(X, Y)=({}, {}) Width={} Height={}".format(
+                pixy.value(1), pixy.value(2), pixy.value(3),
+                pixy.value(4)))
+
+            while pixy.value(1) < 170:
+                robot.turn_left(100)
+            robot.left_motor.stop()
+            robot.right_motor.stop()
+            time.sleep(0.05)
+
+            while pixy.value(1) > 190:
+                robot.turn_right(100)
+            robot.left_motor.stop()
+            robot.right_motor.stop()
+            time.sleep(0.05)
+
+            while pixy.value(1) > 170 and pixy.value(1) < 190:
+                time.sleep(0.2)
+
+
+        # DOne: 3. Use the x value to turn the robot
         #   If the Pixy x value is less than 150 turn left (-turn_speed, turn_speed)
         #   If the Pixy x value is greater than 170 turn right (turn_speed, -turn_speed)
         #   If the Pixy x value is between 150 and 170 stop the robot
