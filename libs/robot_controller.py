@@ -27,7 +27,7 @@ class Snatch3r(object):
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
         self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_D)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
