@@ -11,9 +11,8 @@ def Main():
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
 
-
-    check = ttk.Checkbutton(main_frame, text='Use Metric', variable=value,
-                                onvalue= 1, offvalue= 0)
+    value = tkinter.IntVar()
+    check = ttk.Checkbutton(main_frame, text='Use Metric', variable = value)
     check.grid(row=0, column = 0)
 
     forward_button = ttk.Button(main_frame, text="Forward")
@@ -21,7 +20,7 @@ def Main():
     # forward_button and '<Up>' key is done for your here...
     # forward_button['command'] = lambda: some_callback1(mqtt_client, left_speed_entry, right_speed_entry)
     # root.bind('<Up>', lambda event: some_callback1(mqtt_client, left_speed_entry, right_speed_entry))
-    forward_button['command'] = lambda: wumbo(value)
+    forward_button['command'] = lambda: wumbo(value.get())
 
     root.mainloop()
 
