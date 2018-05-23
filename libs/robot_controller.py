@@ -136,6 +136,14 @@ class Snatch3r(object):
             self.stop_robot()
             time.sleep(0.05)
 
+    def relative_move(self, pos_l, pos_r):
+        self.left_motor.run_to_rel_pos(position_sp=pos_l, speed_sp=300)
+        self.right_motor.run_to_rel_pos(position_sp=pos_r, speed_sp=300)
+        self.right_motor.stop()
+        self.left_motor.stop()
+        time.sleep(0.05)
+
+
     def resetter(self):
         while True:
             if self.touchyboy.is_pressed:

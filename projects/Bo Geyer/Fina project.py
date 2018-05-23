@@ -41,7 +41,7 @@ def main():
     pixy = ev3.Sensor(driver_name="pixy-lego")
     pixy.mode = "SIG1"
     turn_speed = 100
-
+    army = False
     ir_sensor = robot.ir_sensor
 
 
@@ -85,8 +85,20 @@ def main():
                 time.sleep(1)
 
                 robot.arm_up()
-                robot.arm_down()
+                army = True
                 break
+
+            while army == True:
+                for k in range(len(robot.positions),0,-2):
+                    pos_r = robot.positions[k-1]
+                    pos_l = robot.positions[k-2]
+                    robot.relative_move(pos_l, pos_r)
+                robot.turn_right_by_encoders(180, 200)
+                robot.arm_down()
+                army = False
+                robot.turn_left_by_encoders(180, 200)
+                ev3.Sound.speak("roof roof").wait()
+
 
 
 
