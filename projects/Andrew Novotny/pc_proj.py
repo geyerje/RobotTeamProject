@@ -100,7 +100,7 @@ def send_forward(mqtt_client, left, right):
 
 def send_back(mqtt_client, left, right):
     print("robot_back")
-    mqtt_client.send_message("move", [-left, -right])
+    mqtt_client.send_message("move", [-int (left), -right])
 
 def send_right(mqtt_client, left, right):
     print("robot_right")
