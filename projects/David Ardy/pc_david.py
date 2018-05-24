@@ -67,6 +67,14 @@ def main():
     button_exit.grid(row=6, column=2)
     button_exit['command'] = (lambda: quit_program(mqtt_client, True))
 
+    button_arm_up = ttk.Button(main_frame, text="Quit")
+    button_arm_up.grid(row=5, column=2)
+    button_arm_up['command'] = lambda: send_up(mqtt_client)
+
+    button_arm_down = ttk.Button(main_frame, text="Exit")
+    button_arm_down.grid(row=6, column=2)
+    button_arm_down['command'] = lambda: send_down(mqtt_client)
+    
     root.mainloop()
 
 ###########################################################
