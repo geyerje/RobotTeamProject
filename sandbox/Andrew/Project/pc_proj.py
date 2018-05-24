@@ -7,7 +7,7 @@ import mqtt_remote_method_calls as com
 class Computer(object):
     def __init__(self):
         pass
-    
+
     def printer(self, value):
         print(value)
 
