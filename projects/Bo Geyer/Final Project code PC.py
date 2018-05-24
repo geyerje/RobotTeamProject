@@ -1,9 +1,3 @@
-
-
-#The fetch imported in this program is located in the libs folder (it is where I had to put it
-#to allow for the import, but I included the same file named Fetch in this project folder for you
-#to see and grade.
-
 import tkinter
 from tkinter import ttk
 from tkinter import *

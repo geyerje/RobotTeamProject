@@ -262,9 +262,17 @@ class Snatch3r(object):
     #     self.right_motor.stop()
     #     time.sleep(0.05)
 
+
+
+
+    # The fetch imported in this program is located in the libs folder (it is where I had to put it
+    # to allow for the import, but I included the same file named Fetch in my(Bo Geyer) project folder for you
+    # to see and grade.
     def bo_project(self):
         fetch.main()
         self.mqtt.send_message('respond')
+        
+
 
     def watch_move(self, left_speed, right_speed):
         # while self.color_sensor.color != 1:
