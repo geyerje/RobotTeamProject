@@ -52,10 +52,10 @@ def main():
     button_forward['command'] = lambda: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
     root.bind('<Up>', lambda event: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
-    button_forward_control = ttk.Button(main_frame, text="FNS")
-    button_forward_control.grid(row=5, column=1)
-    button_forward_control['command'] = lambda: forward_control(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
-    root.bind('command', lambda event: forward_control(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+    button_forward_c = ttk.Button(main_frame, text="FNS")
+    button_forward_c.grid(row=5, column=1)
+    button_forward_c['command'] = lambda: forward_c(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
+    root.bind('command', lambda event: forward_c(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     button_back = ttk.Button(main_frame, text="Back")
     button_back.grid(row=4, column=1)
@@ -107,7 +107,7 @@ def send_forward(mqtt_client, left, right):
     mqtt_client.send_message("watch_move", [left, right])
 
 
-def forward_control(mqtt_client, left, right):
+def forward_c(mqtt_client, left, right):
     print("robot_forward with left speed", left, "and right speed", right)
     mqtt_client.send_message("move", [left, right])
 
