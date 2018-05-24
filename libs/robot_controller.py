@@ -270,7 +270,7 @@ class Snatch3r(object):
         # while self.color_sensor.color != 1:
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
-        while self.color_sensor.color != 0:
+        while self.color_sensor.color != 1:
             time.sleep(0.05)
         self.hard_stop()
         ev3.Sound.speak('WALL')
