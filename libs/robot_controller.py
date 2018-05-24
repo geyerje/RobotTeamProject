@@ -296,6 +296,7 @@ class Snatch3r(object):
             self.arm_motor.run_forever(speed_sp=400)
             time.sleep(0.05)
             if self.touchyboy.is_pressed:
+                self.mqtt.send_message('end_response')
                 break
         self.arm_motor.stop()
         self.mqtt.send_message('end_response')
