@@ -270,12 +270,14 @@ class Snatch3r(object):
         # while self.color_sensor.color != 1:
         self.right_motor.run_forever(speed_sp=right_speed)
         self.left_motor.run_forever(speed_sp=left_speed)
-        if self.color_sensor.reflected_light_intensity <= 30:
-            self.hard_stop()
-            ev3.Sound.speak('WALL')
-            self.right_motor.run_timed(speed_sp=-800, time_sp=1000)
-            self.left_motor.run_timed(speed_sp=-800, time_sp=1000)
-            # if self.color_sensor.color == 0:
+        while True:
+            if self.color_sensor.reflected_light_intensity <= 20:
+                self.hard_stop()
+                ev3.Sound.speak('WALL')
+                self.right_motor.run_timed(speed_sp=-800, time_sp=1000)
+                self.left_motor.run_timed(speed_sp=-800, time_sp=1000)
+                break
+                # if self.color_sensor.color == 0:
 
     def watch_turn(self, left_speed, right_speed):
         self.right_motor.run_timed(speed_sp=right_speed, time_sp=700)
