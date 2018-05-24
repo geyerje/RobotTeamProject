@@ -6,8 +6,12 @@ from PIL import Image, ImageTk
 import mqtt_remote_method_calls as com
 
 
-def end_response():
-    print('Maze Complete')
+class computer(object):
+    def __init__(self):
+        pass
+
+    def end_response(self):
+        print('Maze Completed')
 
 
 def main():
