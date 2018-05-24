@@ -128,7 +128,7 @@ def stop(mqtt_client):
 
 def send_up(mqtt_client):
     print("arm_up_maze")
-    mqtt_client.send_message("arm_up")
+    mqtt_client.send_message("arm_up_maze")
 
 
 def send_down(mqtt_client):
