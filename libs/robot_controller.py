@@ -274,8 +274,8 @@ class Snatch3r(object):
             # time.sleep(0.05)
         self.hard_stop()
         ev3.Sound.speak('WALL')
-        self.right_motor.run_timed(speed_sp=-400, time_sp=600)
-        self.left_motor.run_timed(speed_sp=-400, time_sp=600)
+        self.right_motor.run_timed(speed_sp=-400, time_sp=400)
+        self.left_motor.run_timed(speed_sp=-400, time_sp=400)
         # if self.color_sensor.color == 0:
         # if self.color_sensor.reflected_light_intensity <= 20:
 
