@@ -12,7 +12,7 @@ import robot_controller as robo
 def main():
     robot = robo.Snatch3r()
     mqtt_client = com.MqttClient(robot)
-    # robot.mqtt = mqtt_client
+    robot.mqtt = mqtt_client
     mqtt_client.connect_to_pc()
     robot.loop_forever()
 
