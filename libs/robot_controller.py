@@ -19,7 +19,7 @@ import fetch
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
-    
+
     # TODO: Implement the Snatch3r class as needed when working the sandox exercises
     # (and delete these comments)
 
@@ -37,7 +37,6 @@ class Snatch3r(object):
         self.count = 0
         self.positions = [self.left_motor.position, self.right_motor.position]
 
-
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
@@ -52,11 +51,10 @@ class Snatch3r(object):
     def forward(self, inches, speed=100, stop_action='brake'):
         K = 360 / 4.2
         degrees_motor = K * inches
-        self.left_motor.run_to_rel_pos(position_sp=degrees_motor, speed_sp=8*speed, stop_action=stop_action)
+        self.left_motor.run_to_rel_pos(position_sp=degrees_motor, speed_sp=8 * speed, stop_action=stop_action)
         self.right_motor.run_to_rel_pos(position_sp=degrees_motor, speed_sp=8 * speed, stop_action=stop_action)
         self.left_motor.wait_while('running')
         self.right_motor.wait_while('running')
-
 
     def loop_forever(self):
         while True:
@@ -121,8 +119,7 @@ class Snatch3r(object):
     def printer(self, value):
         print(value)
 
-
-    #Stops moving the robot when it hits a black line
+    # Stops moving the robot when it hits a black line
     def move2(self, left_speed, right_speed):
         # self.right_motor.run_forever(speed_sp=right_speed)
         # self.left_motor.run_forever(speed_sp=left_speed)
@@ -134,37 +131,38 @@ class Snatch3r(object):
         print(self.color_sensor.reflected_light_intensity)
         print(self.color_sensor.color)
 
-    #makes the robot print the current location of SIG1 object
+    # makes the robot print the current location of SIG1 object
 
-    #finds an object trained to pixy 1 and centers the robot on it
+    # finds an object trained to pixy 1 and centers the robot on it
     def re_center(self):
-            while self.pixy.value(1) < 170:
-                self.turn_left(100)
-            self.stop_robot()
-            time.sleep(0.05)
+        while self.pixy.value(1) < 170:
+            self.turn_left(100)
+        self.stop_robot()
+        time.sleep(0.05)
 
-            while self.pixy.value(1) > 190:
-                self.turn_right(100)
-            self.stop_robot()
-            time.sleep(0.05)
+        while self.pixy.value(1) > 190:
+            self.turn_right(100)
+        self.stop_robot()
+        time.sleep(0.05)
+
     def re_centerryan(self):
-            while self.pixy.value(1) == 0:
-                time.sleep(.1)
-                print('no object')
+        while self.pixy.value(1) == 0:
+            time.sleep(.1)
+            print('no object')
 
-            while self.pixy.value(1) < 139:
-                if self.color_sensor.color == 1:
-                    break
-                self.turn_left(100)
-            self.stop_robot()
-            time.sleep(0.05)
+        while self.pixy.value(1) < 139:
+            if self.color_sensor.color == 1:
+                break
+            self.turn_left(100)
+        self.stop_robot()
+        time.sleep(0.05)
 
-            while self.pixy.value(1) > 144:
-                if self.color_sensor.color == 1:
-                    break
-                self.turn_right(100)
-            self.stop_robot()
-            time.sleep(0.05)
+        while self.pixy.value(1) > 144:
+            if self.color_sensor.color == 1:
+                break
+            self.turn_right(100)
+        self.stop_robot()
+        time.sleep(0.05)
 
     def abs_move(self, pos_l, pos_r):
         print("hi", pos_l, pos_r)
@@ -176,7 +174,6 @@ class Snatch3r(object):
         self.left_motor.stop()
         time.sleep(0.05)
 
-
     def resetter(self):
         while True:
             if self.touchyboy.is_pressed:
@@ -185,13 +182,13 @@ class Snatch3r(object):
 
     def move3(self, left_speed, right_speed, value):
         if value == 0:
-            if self.count >=3:
+            if self.count >= 3:
                 ev3.Sound.speak('Press red button to reset')
                 self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
                 while True:
                     self.resetter()
                     return
-            elif self.color_sensor.reflected_light_intensity <=20:
+            elif self.color_sensor.reflected_light_intensity <= 20:
                 self.right_motor.run_timed(speed_sp=-800, time_sp=100)
                 self.left_motor.run_timed(speed_sp=-800, time_sp=100)
                 ev3.Sound.speak('LOOK OUT!')
@@ -200,16 +197,16 @@ class Snatch3r(object):
                 time.sleep(2)
                 return
             else:
-                self.right_motor.run_timed(speed_sp=right_speed, time_sp = 50)
-                self.left_motor.run_timed(speed_sp=left_speed, time_sp = 50)
+                self.right_motor.run_timed(speed_sp=right_speed, time_sp=50)
+                self.left_motor.run_timed(speed_sp=left_speed, time_sp=50)
         else:
-            if self.count >=3:
+            if self.count >= 3:
                 ev3.Sound.speak('Press red button to reset')
                 self.mqtt.send_message("printer", ["PRESS RED BUTTON TO RESET"])
                 while True:
                     self.resetter()
                     return
-            elif self.color_sensor.reflected_light_intensity <=20:
+            elif self.color_sensor.reflected_light_intensity <= 20:
                 self.right_motor.run_timed(speed_sp=-800, time_sp=100)
                 self.left_motor.run_timed(speed_sp=-800, time_sp=100)
                 ev3.Sound.speak('LOOK OUT!')
@@ -229,14 +226,13 @@ class Snatch3r(object):
                     time.sleep(2)
                     return
 
-
-# Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
+    # Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
     # Ryans code
-    def ryan_start(self, deliver):
-        count = 0
-        self.arm_motor.run_forever(speed_sp=400)
-        time.sleep(5)
-        self.arm_motor.stop()
+    def ryan_start(self, value):
+        if value == 1:
+            self.arm_motor.run_forever(speed_sp=400)
+            time.sleep(5)
+            self.arm_motor.stop()
 
         self.re_centerryan()
         time1 = time.time()
@@ -246,17 +242,19 @@ class Snatch3r(object):
                 break
         self.stop_robot()
         time2 = time.time()
-
-        self.arm_motor.run_forever(speed_sp=-400)
-        time.sleep(5)
-        self.arm_motor.stop()
-        self.mqtt.send_message('reach')
+        if value == 1:
+            self.arm_motor.run_forever(speed_sp=-400)
+            time.sleep(5)
+            self.arm_motor.stop()
+            self.mqtt.send_message('reach')
         self.move(-600, -600)
         time.sleep(time2 - time1)
         self.stop_robot()
-
-
-
+        if value == 0:
+            self.arm_motor.run_forever(speed_sp=-400)
+            time.sleep(5)
+            self.arm_motor.stop()
+            self.mqtt.send_message('reach')
 
     #    if self.color_sensor.color == 1:
     #     self.left_motor.stop()
@@ -265,6 +263,3 @@ class Snatch3r(object):
 
     def Bo_project(self):
         fetch.main()
-
-        
-

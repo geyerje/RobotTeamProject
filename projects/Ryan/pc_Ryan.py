@@ -25,6 +25,10 @@ def main():
     main_frame = ttk.Frame(root, padding=50, relief='raised')
     main_frame.grid()
 
+    value = tkinter.IntVar()
+    check = ttk.Checkbutton(main_frame, text='Deliver?', variable=value)
+    check.grid(row=4, column=0)
+
     close_button = ttk.Button(main_frame, text="Close")
     close_button.grid(row=2, column=1)
     # forward_button and '<Up>' key is done for your here...
@@ -35,7 +39,7 @@ def main():
     start_button = ttk.Button(main_frame, text="Start")
     start_button.grid(row=3, column=0)
     # left_button and '<Left>' key
-    start_button['command'] = lambda: send_start(mqtt_client)
+    start_button['command'] = lambda: send_start(mqtt_client, value.get())
 
     open_button = ttk.Button(main_frame, text="open")
     open_button.grid(row=4, column=1)
@@ -64,9 +68,9 @@ def send_open(mqtt_client):
     mqtt_client.send_message("arm_open")
 
 
-def send_start(mqtt_client):
+def send_start(mqtt_client, value):
     print("robot_left")
-    mqtt_client.send_message("ryan_start", [])
+    mqtt_client.send_message("ryan_start", [value])
 
 
 # Quit and Exit button callbacks
