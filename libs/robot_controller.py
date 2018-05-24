@@ -268,10 +268,10 @@ class Snatch3r(object):
 
     def watch_move(self, left_speed, right_speed):
         # while self.color_sensor.color != 1:
-        self.right_motor.run_forever(speed_sp=right_speed)
-        self.left_motor.run_forever(speed_sp=left_speed)
         while self.color_sensor.color != 1:
-            time.sleep(0.05)
+            self.right_motor.run_forever(speed_sp=right_speed)
+            self.left_motor.run_forever(speed_sp=left_speed)
+            # time.sleep(0.05)
         self.hard_stop()
         ev3.Sound.speak('WALL')
         self.right_motor.run_timed(speed_sp=-800, time_sp=1000)
