@@ -84,15 +84,13 @@ def main():
                 army = True
                 break
 
-            print(robot.positions)
-            print(army)
             while army == True:
                 for k in range(len(robot.positions), 0, -2):
-                    print("Im inside the loop")
                     pos_r = robot.positions[k-1]
                     pos_l = robot.positions[k-2]
                     robot.abs_move(pos_l, pos_r)
-                print("I got here")
+                    print('help im stuck')
+                print('i made it here')
                 robot.turn_right_by_encoders(180, 200)
                 robot.arm_down()
                 army = False
@@ -101,6 +99,7 @@ def main():
                 robot.left_motor.reset()
                 robot.positions = [robot.left_motor.position, robot.right_motor.position]
                 ev3.Sound.speak("roof roof").wait()
+                return
 
 
 

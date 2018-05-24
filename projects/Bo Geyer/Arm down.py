@@ -10,3 +10,5 @@ def main():
     robot.arm_down()
 
     ev3.Sound.speak("done").wait()
+
+main()
