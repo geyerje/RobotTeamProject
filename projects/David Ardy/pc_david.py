@@ -36,7 +36,7 @@ def main():
     button_left = ttk.Button(main_frame, text="Left")
     button_left.grid(row=3, column=0)
     button_left['command'] = lambda: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
-    root.bind('<Right>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+    root.bind('<Left>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     button_right = ttk.Button(main_frame, text="Right")
     button_right.grid(row=3, column=2)
