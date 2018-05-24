@@ -16,10 +16,10 @@ def main():
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
 
-    photo = Image.open("maze.png")
-    lime = ImageTk.PhotoImage(photo)
-    label = Label(root, image=lime)
-    label.grid(row=1, column=3)
+    # photo = Image.open("maze.png")
+    # lime = ImageTk.PhotoImage(photo)
+    # label = Label(root, image=lime)
+    # label.grid(row=1, column=3)
 
     left_speed_label = ttk.Label(main_frame, text="Left")
     left_speed_label.grid(row=0, column=0)
