@@ -40,7 +40,7 @@ def main():
     root.mainloop()
 
 ###########################################################
-# Callbacks for robot functions with drive and arm motors #
+# Callbacks for robot functions with drive and arm motors # 
 ###########################################################
 
 
