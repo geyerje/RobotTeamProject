@@ -11,7 +11,7 @@ def main():
     root = tkinter.Tk()
     root.title("MQTT Remote")
 
-    main_frame = ttk.Frame(root, padding=25, relief='raised')
+    main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
 
     left_speed_label = ttk.Label(main_frame, text="Left")
@@ -22,10 +22,10 @@ def main():
     left_speed_entry.grid(row=1, column=0)
 
     right_speed_label = ttk.Label(main_frame, text="Right")
-    right_speed_label.grid(row=0, column=3)
+    right_speed_label.grid(row=0, column=2)
     right_speed_entry = ttk.Entry(main_frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "600")
-    right_speed_entry.grid(row=1, column=3)
+    right_speed_entry.grid(row=1, column=2)
 
     button_left = ttk.Button(main_frame, text="Left")
     button_left.grid(row=3, column=0)
@@ -33,9 +33,32 @@ def main():
     root.bind('<Right>', lambda event: send_left(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
 
     button_right = ttk.Button(main_frame, text="Right")
-    button_right.grid(row=3, column=3)
+    button_right.grid(row=3, column=2)
     button_right['command'] = lambda: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
     root.bind('<Right>', lambda event: send_right(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+
+    button_forward = ttk.Button(main_frame, text="Forward")
+    button_forward.grid(row=2, column=1)
+    button_forward['command'] = lambda: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
+    root.bind('<Up>', lambda event: send_forward(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+
+    button_back = ttk.Button(main_frame, text="Back")
+    button_back.grid(row=4, column=1)
+    button_back['command'] = lambda: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get())
+    root.bind('<Down>', lambda event: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get()))
+
+    button_stop = ttk.Button(main_frame, text="Stop")
+    button_stop.grid(row=3, column=1)
+    button_stop['command'] = lambda: stop(mqtt_client)
+    root.bind('<space>', lambda event: stop(mqtt_client))
+
+    button_quit = ttk.Button(main_frame, text="Quit")
+    button_quit.grid(row=5, column=2)
+    button_quit['command'] = (lambda: quit_program(mqtt_client, False))
+
+    button_exit = ttk.Button(main_frame, text="Exit")
+    button_exit.grid(row=6, column=2)
+    button_exit['command'] = (lambda: quit_program(mqtt_client, True))
 
     root.mainloop()
 
