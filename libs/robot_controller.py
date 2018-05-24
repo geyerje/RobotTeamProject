@@ -228,16 +228,22 @@ class Snatch3r(object):
     # Ryans code
     def ryan_start(self):
 
+        time1 = time.time()
         self.re_centerryan()
 
-        # while self.color_sensor.color != 1:
-        #     self.move(600, 600)
-        #     if self.color_sensor.color == 1:
-        #         break
-        #
-        #
-        #
-        # self.stop_robot()
+        while self.color_sensor.color != 1:
+            self.move(600, 600)
+            if self.color_sensor.color == 1:
+                break
+        self.stop_robot()
+
+        time2 = time.time()
+
+        self.move(-600, -600)
+        time.sleep(time2 - time1)
+        self.stop_robot()
+
+        
 
 
     #    if self.color_sensor.color == 1:
