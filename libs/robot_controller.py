@@ -264,9 +264,9 @@ class Snatch3r(object):
         fetch.main()
         self.mqtt.send_message('respond')
 
-    ###################
-    # David's Project #
-    ###################
+    #####################
+    #  David's Project  #
+    #####################
 
     def watch_move(self, left_speed, right_speed):
         # while self.color_sensor.color != 1:
