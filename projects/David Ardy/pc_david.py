@@ -1,7 +1,7 @@
 import tkinter
 from tkinter import ttk
-# from tkinter import *
-# from PIL import Image, ImageTk
+from tkinter import *
+from PIL import Image, ImageTk
 
 import mqtt_remote_method_calls as com
 
@@ -16,10 +16,10 @@ def main():
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
 
-    # photo = Image.open("maze.png")
-    # lime = ImageTk.PhotoImage(photo)
-    # label = Label(root, image=lime)
-    # label.grid(row=1, column=3)
+    photo = Image.open("maze.png")
+    lime = ImageTk.PhotoImage(photo)
+    label = Label(root, image=lime)
+    label.grid(row=1, column=3)
 
     left_speed_label = ttk.Label(main_frame, text="Left")
     left_speed_label.grid(row=0, column=0)
@@ -104,8 +104,8 @@ def send_back(mqtt_client, left, right):
 
 
 def stop(mqtt_client):
+    mqtt_client.send_message("hard_stop")
     print("robot_stop")
-    mqtt_client.send_message("stop_robot")
 
 
 def send_up(mqtt_client):

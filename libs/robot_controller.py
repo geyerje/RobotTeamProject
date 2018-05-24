@@ -274,3 +274,9 @@ class Snatch3r(object):
         ev3.Sound.speak('WALL')
         self.right_motor.run_timed(speed_sp=-800, time_sp=300)
         self.left_motor.run_timed(speed_sp=-800, time_sp=300)
+
+    def hard_stop(self, stop_action='brake'):
+        self.left_motor.stop(stop_action=stop_action)
+        self.right_motor.stop(stop_action=stop_action)
+        self.arm_motor.stop(stop_action=stop_action)
+        time.sleep(0.05)
