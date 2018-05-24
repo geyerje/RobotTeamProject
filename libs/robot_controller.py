@@ -260,16 +260,14 @@ class Snatch3r(object):
             self.arm_motor.stop()
             self.mqtt.send_message('reach2')
 
-
-
-
-
-
-
     def bo_project(self):
         fetch.main()
         self.mqtt.send_message('respond')
 
+    ###################
+    # David's Project #
+    ###################
+    
     def watch_move(self, left_speed, right_speed):
         # while self.color_sensor.color != 1:
         while self.color_sensor.color != 1:
