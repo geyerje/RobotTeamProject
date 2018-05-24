@@ -7,6 +7,7 @@ def main():
     ev3.Sound.speak("arm down").wait()
 
     robot = robo.Snatch3r()
+    robot.arm_up()
     robot.arm_down()
 
     ev3.Sound.speak("done").wait()
