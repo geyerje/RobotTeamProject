@@ -266,4 +266,11 @@ class Snatch3r(object):
         fetch.main()
         self.mqtt.send_message('respond')
 
-
+    def watch_move(self, left_speed, right_speed):
+        while self.color_sensor.color != 1:
+            self.right_motor.run_forever(speed_sp=right_speed)
+            self.left_motor.run_forever(speed_sp=left_speed)
+        self.stop_robot()
+        ev3.Sound.speak('WALL')
+        self.right_motor.run_timed(speed_sp=-800, time_sp=100)
+        self.left_motor.run_timed(speed_sp=-800, time_sp=100)
