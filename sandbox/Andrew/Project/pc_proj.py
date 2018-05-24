@@ -67,7 +67,7 @@ def main():
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
-    # back_button and '<Down>' key
+    # back_button and '<Down>' key 
     back_button['command'] = lambda: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get(), value.get())
     root.bind('<Down>', lambda event: send_back(mqtt_client, left_speed_entry.get(), right_speed_entry.get(), value.get()))
 
