@@ -152,12 +152,16 @@ class Snatch3r(object):
                 time.sleep(.1)
                 print('no object')
 
-            while self.pixy.value(1) < 170:
+            while self.pixy.value(1) < 139:
+                if self.color_sensor.color == 1:
+                    break
                 self.turn_left(100)
             self.stop_robot()
             time.sleep(0.05)
 
-            while self.pixy.value(1) > 190:
+            while self.pixy.value(1) > 144:
+                if self.color_sensor.color == 1:
+                    break
                 self.turn_right(100)
             self.stop_robot()
             time.sleep(0.05)
@@ -230,10 +234,15 @@ class Snatch3r(object):
     # Ryans code
     def ryan_start(self):
 
-        self.re_center()
+        self.re_centerryan()
 
         # while self.color_sensor.color != 1:
         #     self.move(600, 600)
+        #     if self.color_sensor.color == 1:
+        #         break
+        #
+        #
+        #
         # self.stop_robot()
 
 
