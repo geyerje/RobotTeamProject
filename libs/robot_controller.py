@@ -278,8 +278,8 @@ class Snatch3r(object):
             # if self.color_sensor.color == 0:
 
     def watch_turn(self, left_speed, right_speed):
-        self.right_motor.run_timed(speed_sp=right_speed, time_sp=600)
-        self.left_motor.run_timed(speed_sp=left_speed, time_sp=600)
+        self.right_motor.run_timed(speed_sp=right_speed, time_sp=700)
+        self.left_motor.run_timed(speed_sp=left_speed, time_sp=700)
 
     def hard_stop(self, stop_action='brake'):
         self.left_motor.stop(stop_action=stop_action)
