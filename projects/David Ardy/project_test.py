@@ -1,3 +1,7 @@
+#####################
+#  David's Project  #
+#####################
+
 def watch_move(self, left_speed, right_speed):
     # while self.color_sensor.color != 1:
     while self.color_sensor.color != 1:
@@ -6,8 +10,8 @@ def watch_move(self, left_speed, right_speed):
         # time.sleep(0.05)
     self.hard_stop()
     ev3.Sound.speak('WALL')
-    self.right_motor.run_timed(speed_sp=-400, time_sp=400)
-    self.left_motor.run_timed(speed_sp=-400, time_sp=400)
+    self.right_motor.run_timed(speed_sp=-400, time_sp=300)
+    self.left_motor.run_timed(speed_sp=-400, time_sp=300)
     # if self.color_sensor.color == 0:
     # if self.color_sensor.reflected_light_intensity <= 20:
 
