@@ -167,7 +167,6 @@ class Snatch3r(object):
             time.sleep(0.05)
 
     def abs_move(self, pos_l, pos_r):
-        print("hi", pos_l, pos_r)
         self.left_motor.run_to_abs_pos(position_sp=pos_l, speed_sp=300)
         self.right_motor.run_to_abs_pos(position_sp=pos_r, speed_sp=300)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
@@ -263,8 +262,8 @@ class Snatch3r(object):
     #     self.right_motor.stop()
     #     time.sleep(0.05)
 
-    def Bo_project(self):
+    def bo_project(self):
         fetch.main()
+        self.mqtt.send_message('respond')
 
-        
 
