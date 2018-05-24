@@ -14,6 +14,7 @@
 import ev3dev.ev3 as ev3
 import math
 import time
+import fetch
 
 
 class Snatch3r(object):
@@ -28,11 +29,13 @@ class Snatch3r(object):
         self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_D)
+        self.left_motor.reset()
+        self.right_motor.reset()
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
         self.count = 0
-        self.positions = [0, 0]
+        self.positions = [self.left_motor.position, self.right_motor.position]
 
 
         assert self.left_motor.connected
@@ -163,9 +166,12 @@ class Snatch3r(object):
             self.stop_robot()
             time.sleep(0.05)
 
-    def relative_move(self, pos_l, pos_r):
-        self.left_motor.run_to_rel_pos(position_sp=pos_l, speed_sp=300)
-        self.right_motor.run_to_rel_pos(position_sp=pos_r, speed_sp=300)
+    def abs_move(self, pos_l, pos_r):
+        print("hi", pos_l, pos_r)
+        self.left_motor.run_to_abs_pos(position_sp=pos_l, speed_sp=300)
+        self.right_motor.run_to_abs_pos(position_sp=pos_r, speed_sp=300)
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.stop()
         self.left_motor.stop()
         time.sleep(0.05)
@@ -251,5 +257,8 @@ class Snatch3r(object):
     #     self.right_motor.stop()
     #     time.sleep(0.05)
 
+    def Bo_project(self):
+        fetch.main()
 
+        
 
