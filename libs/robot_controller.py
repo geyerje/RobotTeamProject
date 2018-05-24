@@ -232,7 +232,7 @@ class Snatch3r(object):
 # Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
     # Ryans code
     def ryan_start(self, deliver):
-        count = 0
+
         self.arm_motor.run_forever(speed_sp=400)
         time.sleep(5)
         self.arm_motor.stop()
@@ -245,22 +245,26 @@ class Snatch3r(object):
                 break
         self.stop_robot()
         time2 = time.time()
+        if deliver == 1:
+            self.arm_motor.run_forever(speed_sp=-400)
+            time.sleep(5)
+            self.arm_motor.stop()
+            self.mqtt.send_message('reach')
 
-        self.arm_motor.run_forever(speed_sp=-400)
-        time.sleep(5)
-        self.arm_motor.stop()
-        self.mqtt.send_message('reach')
         self.move(-600, -600)
         time.sleep(time2 - time1)
         self.stop_robot()
+        if deliver == 0:
+            self.arm_motor.run_forever(speed_sp=-400)
+            time.sleep(5)
+            self.arm_motor.stop()
+            self.mqtt.send_message('reach2')
 
 
 
 
-    #    if self.color_sensor.color == 1:
-    #     self.left_motor.stop()
-    #     self.right_motor.stop()
-    #     time.sleep(0.05)
+
+
 
     def bo_project(self):
         fetch.main()
