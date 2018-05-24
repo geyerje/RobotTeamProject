@@ -267,7 +267,7 @@ class Snatch3r(object):
     ###################
     # David's Project #
     ###################
-    
+
     def watch_move(self, left_speed, right_speed):
         # while self.color_sensor.color != 1:
         while self.color_sensor.color != 1:

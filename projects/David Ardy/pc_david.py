@@ -11,7 +11,7 @@ class computer(object):
         pass
 
     def end_response(self):
-        print('Maze Completed')
+        print('Object Retrieved, Maze Completed')
 
 
 def main():
