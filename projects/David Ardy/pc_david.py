@@ -15,7 +15,7 @@ class computer(object):
 
 
 def main():
-    mqtt_client = com.MqttClient()
+    mqtt_client = com.MqttClient(computer())
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
