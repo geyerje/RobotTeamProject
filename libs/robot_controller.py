@@ -27,11 +27,12 @@ class Snatch3r(object):
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
         self.ir_sensor = ev3.InfraredSensor()
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_D)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.mqtt = None
         self.touchyboy = ev3.TouchSensor(ev3.INPUT_1)
         self.count = 0
+        self.positions = [0, 0]
 
 
         assert self.left_motor.connected
@@ -63,6 +64,7 @@ class Snatch3r(object):
         self.right_motor.stop()
         self.arm_motor.stop()
         time.sleep(0.05)
+        self.positions.extend((self.left_motor.position, self.right_motor.position))
 
     def turn_left_by_encoders(self, degrees, speed):
         dis = (degrees / 0.23149)
@@ -98,6 +100,15 @@ class Snatch3r(object):
                 break
         self.arm_motor.stop()
 
+    def arm_close(self):
+        self.arm_motor.run_forever(speed_sp=400)
+        time.sleep(5)
+        self.arm_motor.stop()
+
+    def arm_open(self):
+        self.arm_motor.run_forever(speed_sp=-400)
+        time.sleep(5)
+        self.arm_motor.stop()
 
     def arm_down(self):
         self.arm_motor.run_forever(speed_sp=-400)
@@ -126,15 +137,35 @@ class Snatch3r(object):
     def re_center(self):
             while self.pixy.value(1) < 170:
                 self.turn_left(100)
-            self.left_motor.stop()
-            self.right_motor.stop()
+            self.stop_robot()
             time.sleep(0.05)
 
             while self.pixy.value(1) > 190:
                 self.turn_right(100)
-            self.left_motor.stop()
-            self.right_motor.stop()
+            self.stop_robot()
             time.sleep(0.05)
+    def re_centerryan(self):
+            while self.pixy.value(1) == 0:
+                time.sleep(.1)
+                print('no object')
+
+            while self.pixy.value(1) < 170:
+                self.turn_left(100)
+            self.stop_robot()
+            time.sleep(0.05)
+
+            while self.pixy.value(1) > 190:
+                self.turn_right(100)
+            self.stop_robot()
+            time.sleep(0.05)
+
+    def relative_move(self, pos_l, pos_r):
+        self.left_motor.run_to_rel_pos(position_sp=pos_l, speed_sp=300)
+        self.right_motor.run_to_rel_pos(position_sp=pos_r, speed_sp=300)
+        self.right_motor.stop()
+        self.left_motor.stop()
+        time.sleep(0.05)
+
 
     def resetter(self):
         while True:
@@ -190,6 +221,21 @@ class Snatch3r(object):
 
 
 # Andrew Notes: Need to make MQTT 2 way, add something to TKINTER, reenable touchyboy,
+    # Ryans code
+    def ryan_start(self):
+
+        self.re_center()
+
+        while self.color_sensor.color != 1:
+            self.move(600, 600)
+            time.sleep(1)
+        self.stop_robot()
+
+
+    #    if self.color_sensor.color == 1:
+    #     self.left_motor.stop()
+    #     self.right_motor.stop()
+    #     time.sleep(0.05)
 
 
 
