@@ -286,3 +286,12 @@ class Snatch3r(object):
         self.right_motor.stop(stop_action=stop_action)
         self.arm_motor.stop(stop_action=stop_action)
         time.sleep(0.05)
+
+    def arm_up_maze(self):
+        while True:
+            self.arm_motor.run_forever(speed_sp=400)
+            time.sleep(0.05)
+            if self.touchyboy.is_pressed:
+                break
+        self.arm_motor.stop()
+        self.mqtt.send_message('end_response')

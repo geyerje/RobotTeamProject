@@ -6,6 +6,10 @@ from PIL import Image, ImageTk
 import mqtt_remote_method_calls as com
 
 
+def end_response():
+    print('Maze Complete')
+
+
 def main():
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
