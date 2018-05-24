@@ -272,5 +272,5 @@ class Snatch3r(object):
             self.left_motor.run_forever(speed_sp=left_speed)
         self.stop_robot()
         ev3.Sound.speak('WALL')
-        self.right_motor.run_timed(speed_sp=-800, time_sp=100)
-        self.left_motor.run_timed(speed_sp=-800, time_sp=100)
+        self.right_motor.run_timed(speed_sp=-800, time_sp=300)
+        self.left_motor.run_timed(speed_sp=-800, time_sp=300)
